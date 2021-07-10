@@ -11,6 +11,7 @@
         <attribute name="account" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="amonut" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="interval" optional="YES" attributeType="String"/>
         <attribute name="isrepeat" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -20,6 +21,6 @@
     </entity>
     <elements>
         <element name="Account" positionX="-54" positionY="0" width="128" height="104"/>
-        <element name="BasedIE" positionX="-36" positionY="36" width="128" height="164"/>
+        <element name="BasedIE" positionX="-36" positionY="36" width="128" height="179"/>
     </elements>
 </model>

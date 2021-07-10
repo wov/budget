@@ -22,9 +22,15 @@ struct addIE: View {
     
     private func addIE(){
         let newBasedIE = BasedIE(context: viewContext)
-//        newAccount.name = accountName
-//        newAccount.desc = accountDesc
-//        newAccount.id = UUID()
+        
+        newBasedIE.id = UUID()
+        newBasedIE.account = account.id
+        
+        newBasedIE.name = name
+        newBasedIE.amonut = amount
+        newBasedIE.isrepeat = isrepeat
+        newBasedIE.start = start
+        newBasedIE.end = end
         
         do {
             try viewContext.save()
@@ -32,7 +38,6 @@ struct addIE: View {
         } catch {
             // Error handling
         }
-        
     }
     
     
@@ -63,19 +68,26 @@ struct addIE: View {
                     }
                     
                     HStack {
-                        Toggle("是否需要重复",isOn: $isrepeat)
+                        Toggle("是否重复",isOn: $isrepeat)
                     }
                     
                     if(self.isrepeat){
-                        
-                        
-                        
-                        
+                        HStack{
+                            DatePicker(
+                                "开始时间",
+                                selection : $start,
+                                displayedComponents: [.date]
+                            )
+                        }
+                        HStack{
+                            DatePicker(
+                                "结束时间",
+                                selection : $end,
+                                displayedComponents: [.date]
+                            )
+                        }
                     }
-                    
-                    
                 }
-                
                 
             }.navigationBarTitle("添加收入/支出", displayMode: .inline)
             .navigationBarItems(leading:

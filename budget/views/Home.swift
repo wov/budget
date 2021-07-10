@@ -16,22 +16,20 @@ struct Home: View {
         animation: .default
     ) var accounts: FetchedResults<Account>
     
+    @FetchRequest(
+        entity: BasedIE.entity(),
+        sortDescriptors: [],
+        animation: .default
+    ) var ies: FetchedResults<BasedIE>
     
-    
+
     @State private var showAddAccount: Bool = false
 
     var body: some View {
         NavigationView {
-            
-//            let _a = print("what in accounts .....")
-            
-//            let _ = print(accounts)
-
             List{
                 ForEach(accounts) { account in
-                    Section{
-                        AccountsRow(account:account)
-                    }
+                    AccountsRow(account:account,ies:ies)
                 }
             }
             .listStyle(GroupedListStyle())
