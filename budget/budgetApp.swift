@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
+import CloudKit
 
 @main
 struct budgetApp: App {
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

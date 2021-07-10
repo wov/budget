@@ -9,72 +9,49 @@ import SwiftUI
 
 struct AccountsRow: View {
     
-    @EnvironmentObject var modelData: ModelData
-    
-    
-    
-    var body: some View {
-        NavigationView {
-            List{
-                
-                Section(header: Text("信用卡")){
-                    
-                    HStack{
-                        VStack(alignment:.leading) {
-                            Text("固定支出")
-                                .font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
-                            Text("iPhone分期")
-                        }
-                        Spacer()
-                        Text("120")
-                    }
-                    
-                    HStack{
-                        VStack(alignment:.leading) {
-                            Text("动态支出")
-                                .font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
-                            Text("交通费用")
-                        }
-                        Spacer()
-                        Text("120")
-                    }
-                    
-                }
+    @Environment(\.managedObjectContext) private var viewContext
+    var account:Account
+    @State private var showAddIE: Bool = false
 
-                Section(header: Text("支付宝")){
-                    
-                    HStack{
-                        VStack(alignment:.leading) {
-                            Text("固定支出")
-                                .font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
-                            Text("iPhone分期")
-                        }
-                        Spacer()
-                        Text("120")
-                    }
-                    
-                    HStack{
-                        VStack(alignment:.leading) {
-                            Text("动态支出")
-                                .font(/*@START_MENU_TOKEN@*/.caption/*@END_MENU_TOKEN@*/)
-                            Text("交通费用")
-                        }
-                        Spacer()
-                        Text("120")
-                    }
-                    
+    var body: some View {
+        Section(header: Text(account.name ?? "")){
+            
+            HStack{
+                VStack(alignment: .leading){
+                    Text("aaa")
                 }
-                
             }
-            .listStyle(GroupedListStyle())
-            .navigationTitle("2021-06")
-        }
+            
+//            HStack{
+//                VStack(alignment: .leading){
+//                    Button( action: {
+//                        self.showAddIE.toggle()
+//                    }){
+//                        Text("新增收入/支出")
+//                    }
+//                }
+//            }
+//            HStack{
+//                VStack(alignment: .leading){
+//                    Button( action: {
+//                        self.showAddIE.toggle()
+//                    }){
+//                        Text("新增收入/支出")
+//                    }
+//                }
+//            }
+        }.sheet(isPresented: $showAddIE, content: {
+            addIE(showAddIE:self.$showAddIE, account:account)
+        })
     }
 }
 
 struct AccountsRow_Previews: PreviewProvider {
+//    static var account = Account(name:"test")
+    static var account = Account()
+    
     static var previews: some View {
-        AccountsRow()
+        AccountsRow(account: account)
 //            .previewLayout(.fixed(width: 300, height: 200))
     }
 }

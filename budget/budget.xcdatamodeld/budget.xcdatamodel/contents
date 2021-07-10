@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Account" representedClassName="Account" syncable="YES" codeGenerationType="class">
+        <attribute name="basedIE" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="desc" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String" defaultValueString=""/>
+        <relationship name="hasBasedIE" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BasedIE" inverseName="belong2Account" inverseEntity="BasedIE"/>
+    </entity>
+    <entity name="BasedIE" representedClassName="BasedIE" syncable="YES" codeGenerationType="class">
+        <attribute name="account" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="amonut" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="interval" optional="YES" attributeType="String"/>
+        <attribute name="isrepeat" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="belong2Account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="hasBasedIE" inverseEntity="Account"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="Account" positionX="-54" positionY="0" width="128" height="104"/>
+        <element name="BasedIE" positionX="-36" positionY="36" width="128" height="164"/>
     </elements>
 </model>

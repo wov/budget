@@ -27,5 +27,8 @@ struct IncomeAndExpenses:Identifiable{
     var recordId: CKRecord.ID?
     var type: incomeType
     var interval: computingInterval
-    
+    var amount: Float //金额
+    var defaultAmount: Float //默认金额
+    var from: Date //开始的时间
+    var end: Date //结束的时间
 }

@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
-//    @StateObject var notificationCenter = NotificationCenter()
-//    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-
+struct ContentView: View {    
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var selection: Tab = .list
     
     enum Tab{
@@ -18,28 +17,9 @@ struct ContentView: View {
         case setting
     }
     
-    
     var body: some View {
         
-        TabView(selection: $selection){
-//            WareHouse()
-            
-            AccountsRow()
-            
-//            GoodList()
-//                .tabItem {
-//                    Label("我的商品",systemImage:"list.dash")
-//                }
-//                .tag(Tab.list)
-//
-//            Setting()
-//                .tabItem {
-//                    Label("设置",systemImage:"gearshape.fill")
-//                }
-//                .tag(Tab.setting)
-            
-            
-        }
+        Home()
         
     }
 }
@@ -63,7 +43,7 @@ struct StatefulPreviewWrapper<Value, Content: View>: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(ModelData())
+//            .environmentObject(ModelData())
     }
 }
 
