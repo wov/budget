@@ -12,19 +12,19 @@ struct AccountsRow: View {
     var account : Account
     var ies : FetchedResults<BasedIE>
     
-//    private var filterIes:[BasedIE] = []
-//
-//    init(account : Account,ies : FetchedResults<BasedIE>){
-//        self.filterIes = self.ies.filter{
-//            $0.account == account.id
-//        }
-//    }
-    
-    
     
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showAddIE: Bool = false
     
+    
+    private func deleteIes(offsets: IndexSet){
+        offsets.map{ ies[$0] }.forEach(viewContext.delete)
+        do {
+            try viewContext.save()
+        } catch {
+            
+        }
+    }
     
 
     var body: some View {
@@ -37,13 +37,12 @@ struct AccountsRow: View {
                             Text(ie.name!)
                         }
                         Spacer()
-                        Text("\(ie.amonut)")
+                        Text("\(ie.amonut.clean)")
                     }
                     
                 }
-            }
+            }.onDelete(perform: deleteIes)
             
-        
 
             HStack{
                 VStack(alignment: .leading){
