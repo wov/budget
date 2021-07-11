@@ -13,12 +13,31 @@ struct addIE: View {
     @Binding var showAddIE: Bool
     
     let account:Account
-
+    
     @State private var name: String = ""
     @State private var amount: Float = 0.0
-    @State private var start: Date = Date()
+    //    @State private var start: Date = Date()
     @State private var end: Date = Date()
     @State private var isrepeat: Bool = false
+    
+    @State private var hasEnd: Bool = false
+    
+    
+    enum type: String,CaseIterable,Identifiable {
+        case income
+        case expenses
+        var id: String{ self.rawValue }
+    }
+    
+    enum amountTypes: String,CaseIterable,Identifiable {
+        case dynamicAmount
+        case fixedAmount
+        var id: String{ self.rawValue}
+    }
+    
+    @State private var accountType = type.expenses
+    @State private var amountType = amountTypes.fixedAmount
+    
     
     private func addIE(){
         let newBasedIE = BasedIE(context: viewContext)
@@ -26,11 +45,18 @@ struct addIE: View {
         newBasedIE.id = UUID()
         newBasedIE.account = account.id
         
+        newBasedIE.type = accountType.rawValue
+        
         newBasedIE.name = name
-        newBasedIE.amonut = amount
+        newBasedIE.amount = amount
+        newBasedIE.amounttype = amountType.rawValue
+        
         newBasedIE.isrepeat = isrepeat
-        newBasedIE.start = start
-        newBasedIE.end = end
+        
+        if(hasEnd){
+            newBasedIE.end = end
+        }
+        
         
         do {
             try viewContext.save()
@@ -41,17 +67,15 @@ struct addIE: View {
     }
     
     
+    
     var body: some View {
-        
         let amountBinding = Binding<String>(get: {
             self.amount == 0 ?
                 "" :
-                String(self.amount)
+                String(self.amount.clean)
         }, set: {
             self.amount = Float($0) ?? 0
         })
-        
-        
         
         NavigationView{
             Form{
@@ -59,32 +83,43 @@ struct addIE: View {
                     HStack {
                         Text("名称")
                         TextField("",text:$name)
+//                            .multilineTextAlignment(.trailing)
+                    }
+                    
+                    Picker("类型",selection : $accountType){
+                        Text("收入").tag(type.income)
+                        Text("支出").tag(type.expenses)
                     }
                     
                     HStack {
                         Text("金额")
                         TextField("",text:amountBinding)
-                            .keyboardType(.decimalPad)
+                            .keyboardType(.numberPad)
+//                            .multilineTextAlignment(.trailing)
                     }
                     
                     HStack {
-                        Toggle("是否重复",isOn: $isrepeat)
+                        Toggle("按月重复",isOn: $isrepeat)
                     }
                     
                     if(self.isrepeat){
-                        HStack{
-                            DatePicker(
-                                "开始时间",
-                                selection : $start,
-                                displayedComponents: [.date]
-                            )
+                        Picker("金额类型",selection : $amountType){
+                            Text("每月固定").tag(amountTypes.fixedAmount)
+                            Text("每月调整").tag(amountTypes.dynamicAmount)
                         }
-                        HStack{
-                            DatePicker(
-                                "结束时间",
-                                selection : $end,
-                                displayedComponents: [.date]
-                            )
+                        
+                        HStack {
+                            Toggle("包含截止日期",isOn: $hasEnd)
+                        }
+                        
+                        if(self.hasEnd){
+                            HStack{
+                                DatePicker(
+                                    "结束时间",
+                                    selection : $end,
+                                    displayedComponents: [.date]
+                                )
+                            }
                         }
                     }
                 }
@@ -100,7 +135,8 @@ struct addIE: View {
                                             self.addIE()
                                         }, label: {
                                             Text("保存")
-                                        })
+                                        }).disabled( name.isEmpty || amount.isZero)
+                                
             )
         }
         

@@ -37,12 +37,11 @@ struct AccountsRow: View {
                             Text(ie.name!)
                         }
                         Spacer()
-                        Text("\(ie.amonut.clean)")
+                        Text("\(ie.amount.clean)")
                     }
                     
                 }
             }.onDelete(perform: deleteIes)
-            
 
             HStack{
                 VStack(alignment: .leading){
