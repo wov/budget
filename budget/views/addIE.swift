@@ -24,8 +24,8 @@ struct addIE: View {
     
     
     enum type: String,CaseIterable,Identifiable {
-        case income
-        case expenses
+        case income = "收入"
+        case expenses = "支出"
         var id: String{ self.rawValue }
     }
     
@@ -83,7 +83,6 @@ struct addIE: View {
                     HStack {
                         Text("名称")
                         TextField("",text:$name)
-//                            .multilineTextAlignment(.trailing)
                     }
                     
                     Picker("类型",selection : $accountType){
@@ -95,7 +94,6 @@ struct addIE: View {
                         Text("金额")
                         TextField("",text:amountBinding)
                             .keyboardType(.numberPad)
-//                            .multilineTextAlignment(.trailing)
                     }
                     
                     HStack {

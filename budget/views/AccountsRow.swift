@@ -34,10 +34,23 @@ struct AccountsRow: View {
                 if(ie.account == account.id){
                     HStack{
                         VStack(alignment: .leading){
+                            switch ie.type!{
+                                case "income" :
+                                    Text("收入")
+                                        .font(.footnote)
+                                        .foregroundColor(Color.gray)
+                                case "expenses" :
+                                    Text("支出")
+                                        .font(.footnote)
+                                        .foregroundColor(Color.gray)
+                                default:
+                                    Text("")
+                            }
                             Text(ie.name!)
                         }
                         Spacer()
                         Text("\(ie.amount.clean)")
+                            .foregroundColor(ie.type! == "income" ? .red : .green)
                     }
                     
                 }
