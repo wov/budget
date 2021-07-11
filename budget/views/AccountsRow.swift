@@ -61,7 +61,7 @@ struct AccountsRow: View {
                     Button( action: {
                         self.showAddIE.toggle()
                     }){
-                        Text("新增收入/支出")
+                        Text("新增项目")
                     }.sheet(isPresented: $showAddIE, content: {
                         addIE(showAddIE:self.$showAddIE, account:account)
                     })

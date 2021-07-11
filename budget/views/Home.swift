@@ -38,7 +38,7 @@ struct Home: View {
                 Button(action: {
                     self.showAddAccount.toggle()
                 }){
-                    Text("添加账户")
+                    Text("管理账户")
                 }
             })
         }

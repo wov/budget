@@ -22,7 +22,6 @@
 		8382F8F2268CAAA100EFF7B2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8F1268CAAA100EFF7B2 /* Home.swift */; };
 		83AC184126996AC0008F9A57 /* addAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC184026996AC0008F9A57 /* addAccount.swift */; };
 		83AC1843269994A7008F9A57 /* addIE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC1842269994A7008F9A57 /* addIE.swift */; };
-		83EA8D1C268E056100809913 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EA8D1B268E056100809913 /* Period.swift */; };
 		83EA8D5C268E13B900809913 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EA8D5B268E13B900809913 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +64,6 @@
 		8382F8F1268CAAA100EFF7B2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		83AC184026996AC0008F9A57 /* addAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAccount.swift; sourceTree = "<group>"; };
 		83AC1842269994A7008F9A57 /* addIE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addIE.swift; sourceTree = "<group>"; };
-		83EA8D1B268E056100809913 /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		83EA8D59268E13B200809913 /* budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = budget.entitlements; sourceTree = "<group>"; };
 		83EA8D5B268E13B900809913 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -186,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				836F21602688B419003806F2 /* IncomeAndExpenses.swift */,
-				83EA8D1B268E056100809913 /* Period.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -328,7 +325,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83EA8D1C268E056100809913 /* Period.swift in Sources */,
 				831F99482684B6270076B082 /* Persistence.swift in Sources */,
 				831F99412684B6230076B082 /* ContentView.swift in Sources */,
 				831F994B2684B6270076B082 /* budget.xcdatamodeld in Sources */,

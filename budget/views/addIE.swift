@@ -67,7 +67,6 @@ struct addIE: View {
     }
     
     
-    
     var body: some View {
         let amountBinding = Binding<String>(get: {
             self.amount == 0 ?
@@ -122,7 +121,7 @@ struct addIE: View {
                     }
                 }
                 
-            }.navigationBarTitle("添加收入/支出", displayMode: .inline)
+            }.navigationBarTitle("新增项目", displayMode: .inline)
             .navigationBarItems(leading:
                                     Button(action: {
                                         self.showAddIE = false
