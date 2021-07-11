@@ -21,7 +21,6 @@ struct Home: View {
         animation: .default
     ) var accounts: FetchedResults<Account>
     
-    //TODO 这里改成使用createdIE
     @FetchRequest(
         entity: CreatedIE.entity(),
         sortDescriptors: [],
