@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct addAccount: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @Binding var showAddAccount: Bool
     
     @State private var accountName: String = ""
     @State private var accountDesc: String = ""
 
-    @Environment(\.managedObjectContext) private var viewContext
     
     private func addAccount(){
         let newAccount = Account(context: viewContext)

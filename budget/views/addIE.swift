@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct addIE: View {
-    
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var showAddIE: Bool
+    
+    @FetchRequest(
+        entity: System.entity(),
+        sortDescriptors: [],
+        animation: .default
+    ) var systemitems: FetchedResults<System>
     
     let account:Account
     
     @State private var name: String = ""
     @State private var amount: Float = 0.0
-    //    @State private var start: Date = Date()
     @State private var end: Date = Date()
     @State private var isrepeat: Bool = false
     
@@ -24,8 +28,8 @@ struct addIE: View {
     
     
     enum type: String,CaseIterable,Identifiable {
-        case income = "收入"
-        case expenses = "支出"
+        case income
+        case expenses
         var id: String{ self.rawValue }
     }
     
@@ -40,24 +44,37 @@ struct addIE: View {
     
     
     private func addIE(){
-        let newBasedIE = BasedIE(context: viewContext)
+        let newCreatedIE = CreatedIE(context: viewContext)
+        newCreatedIE.id = UUID()
+        newCreatedIE.account = account.id
+        newCreatedIE.amount = amount
+        newCreatedIE.name = name
+        newCreatedIE.type = accountType.rawValue
         
-        newBasedIE.id = UUID()
-        newBasedIE.account = account.id
         
-        newBasedIE.type = accountType.rawValue
-        
-        newBasedIE.name = name
-        newBasedIE.amount = amount
-        newBasedIE.amounttype = amountType.rawValue
-        
-        newBasedIE.isrepeat = isrepeat
-        
-        if(hasEnd){
-            newBasedIE.end = end
+        if(isrepeat){
+            let newBasedIE = BasedIE(context: viewContext)
+            let basedID = UUID()
+            
+            newBasedIE.id = basedID
+            newBasedIE.account = account.id
+            newBasedIE.type = accountType.rawValue
+            newBasedIE.name = name
+            newBasedIE.amount = amount
+            newBasedIE.amounttype = amountType.rawValue
+    
+            newCreatedIE.basedie = basedID
+            
+            if(hasEnd){
+                newBasedIE.end = end
+            }
         }
         
         
+        if(!systemitems.isEmpty){
+            newCreatedIE.period = systemitems[0].currentperiod
+        }
+
         do {
             try viewContext.save()
             self.showAddIE = false
@@ -139,9 +156,3 @@ struct addIE: View {
         
     }
 }
-
-//struct addIE_Previews: PreviewProvider {
-//    static var previews: some View {
-//        addIE()
-//    }
-//}
