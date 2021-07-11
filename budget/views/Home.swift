@@ -90,6 +90,8 @@ struct Home: View {
             .sheet(isPresented: $showAddAccount, content: {
                 addAccount(showAddAccount:self.$showAddAccount)
             })
+            
+            
         }
     }
 }

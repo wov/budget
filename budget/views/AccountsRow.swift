@@ -14,6 +14,8 @@ struct AccountsRow: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showAddIE: Bool = false
+    @State private var showModifyIE: Bool = false
+
     
     private func deleteIes(offsets: IndexSet){
         offsets.map{ ies[$0] }.forEach(viewContext.delete)
@@ -24,7 +26,7 @@ struct AccountsRow: View {
         }
     }
     
-
+    
     var body: some View {
         Section(header: Text(account.name ?? "")){
             
@@ -35,27 +37,36 @@ struct AccountsRow: View {
                             let _ = print(ie)
                             
                             switch ie.type!{
-                                case "income" :
-                                    Text("收入")
-                                        .font(.footnote)
-                                        .foregroundColor(Color.gray)
-                                case "expenses" :
-                                    Text("支出")
-                                        .font(.footnote)
-                                        .foregroundColor(Color.gray)
-                                default:
-                                    Text(ie.type!)
+                            case "income" :
+                                Text("收入")
+                                    .font(.footnote)
+                                    .foregroundColor(Color.gray)
+                            case "expenses" :
+                                Text("支出")
+                                    .font(.footnote)
+                                    .foregroundColor(Color.gray)
+                            default:
+                                Text(ie.type!)
                             }
                             Text(ie.name!)
                         }
                         Spacer()
-                        Text("\(ie.amount.clean)")
-                            .foregroundColor(ie.type! == "income" ? .red : .green)
+                        
+                        Button( action: {
+                            self.showModifyIE.toggle()
+                        }){
+                            HStack{
+                                Text("\(ie.amount.clean)")
+                                    .foregroundColor(ie.type! == "income" ? .red : .green)
+                                Image(systemName: "chevron.right")
+                            }
+                        }.sheet(isPresented: $showModifyIE, content: {
+                            modifyCreatedIE(self.$showModifyIE,ie,ie.amount)
+                        })
                     }
-                    
                 }
             }.onDelete(perform: deleteIes)
-
+            
             HStack{
                 VStack(alignment: .leading){
                     Button( action: {
@@ -67,7 +78,7 @@ struct AccountsRow: View {
                     })
                 }
             }
-
+            
         }
     }
 }

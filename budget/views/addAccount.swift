@@ -16,20 +16,20 @@ struct addAccount: View {
     @State private var accountDesc: String = ""
     
     //TODO:修改成传参数过来...
-    @FetchRequest(
-        entity: Account.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Account.name, ascending: false)
-        ],
-        animation: .default
-    ) var accounts: FetchedResults<Account>
-    
-    @FetchRequest(
-        entity: BasedIE.entity(),
-        sortDescriptors: [],
-        animation: .default
-    ) var ies: FetchedResults<BasedIE>
-    
+//    @FetchRequest(
+//        entity: Account.entity(),
+//        sortDescriptors: [
+//            NSSortDescriptor(keyPath: \Account.name, ascending: false)
+//        ],
+//        animation: .default
+//    ) var accounts: FetchedResults<Account>
+//
+//    @FetchRequest(
+//        entity: BasedIE.entity(),
+//        sortDescriptors: [],
+//        animation: .default
+//    ) var ies: FetchedResults<BasedIE>
+//
     private func addAccount(){
         let newAccount = Account(context: viewContext)
         newAccount.name = accountName
@@ -45,23 +45,23 @@ struct addAccount: View {
     }
     
     
-    private func deleteAccounts(offsets: IndexSet){
-        offsets.map{ accounts[$0] }.forEach(viewContext.delete)
-        do {
-            try viewContext.save()
-        } catch {
-            
-        }
-    }
-    
-    private func deleteIes(offsets: IndexSet){
-        offsets.map{ ies[$0] }.forEach(viewContext.delete)
-        do {
-            try viewContext.save()
-        } catch {
-            
-        }
-    }
+//    private func deleteAccounts(offsets: IndexSet){
+//        offsets.map{ accounts[$0] }.forEach(viewContext.delete)
+//        do {
+//            try viewContext.save()
+//        } catch {
+//            
+//        }
+//    }
+//    
+//    private func deleteIes(offsets: IndexSet){
+//        offsets.map{ ies[$0] }.forEach(viewContext.delete)
+//        do {
+//            try viewContext.save()
+//        } catch {
+//            
+//        }
+//    }
     
     var body: some View {
         
@@ -79,21 +79,21 @@ struct addAccount: View {
                     }
                 }
                 
-                Section(header:Text("滑动删除账号")){
-                    ForEach(self.accounts){ account in
-                        HStack{
-                            Text(account.name!)
-                        }
-                    }.onDelete(perform: deleteAccounts)
-                }
-                
-                Section(header:Text("滑动删除basedies，调试用")){
-                    ForEach(self.ies){ account in
-                        HStack{
-                            Text(account.name!)
-                        }
-                    }.onDelete(perform: deleteIes)
-                }
+//                Section(header:Text("滑动删除账号")){
+//                    ForEach(self.accounts){ account in
+//                        HStack{
+//                            Text(account.name!)
+//                        }
+//                    }.onDelete(perform: deleteAccounts)
+//                }
+//
+//                Section(header:Text("滑动删除basedies，调试用")){
+//                    ForEach(self.ies){ account in
+//                        HStack{
+//                            Text(account.name!)
+//                        }
+//                    }.onDelete(perform: deleteIes)
+//                }
             }
             
             .navigationBarTitle("账户管理", displayMode: .inline)
@@ -109,15 +109,7 @@ struct addAccount: View {
                                             Text("保存")
                                         }).disabled(accountName.isEmpty || accountDesc.isEmpty)
             )
-            
-
         }
         
     }
 }
-
-//struct addAccount_Previews: PreviewProvider {
-//    static var previews: some View {
-//        addAccount()
-//    }
-//}

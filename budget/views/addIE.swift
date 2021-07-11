@@ -138,7 +138,8 @@ struct addIE: View {
                     }
                 }
                 
-            }.navigationBarTitle("新增项目", displayMode: .inline)
+            }
+            .navigationBarTitle("新增项目", displayMode: .inline)
             .navigationBarItems(leading:
                                     Button(action: {
                                         self.showAddIE = false
