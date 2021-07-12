@@ -15,16 +15,39 @@ struct Home: View {
     @FetchRequest var accounts : FetchedResults<Account>
     @FetchRequest var ies : FetchedResults<CreatedIE>
     @State private var showAddAccount: Bool = false
+    @State private var remind: Float = 0.0
 
     init(_ periodid:UUID ) {
         self.periodid = periodid
         self._accounts = FetchRequest(entity: Account.entity(), sortDescriptors: [])
         self._ies = FetchRequest(entity: CreatedIE.entity(), sortDescriptors: [] ,predicate: NSPredicate(format: "period == %@", periodid as CVarArg))
     }
+    
+    private func calcRemind() -> Float{
+        var remind: Float = 0.0
+        for  ie in ies{
+            if(ie.type == "income"){
+                remind += ie.amount
+            }else if(ie.type == "expenses"){
+                remind -= ie.amount
+            }
+        }
+        return remind
+    }
+    
+    
         
     var body: some View {
+        let remind:Float = calcRemind()
         NavigationView {
             List{
+                Section{
+                    HStack{
+                        Text("本月结余")
+                        Spacer()
+                        Text("\(remind.clean)")
+                    }
+                }
                 ForEach(accounts) { account in
                     AccountsRow(account:account,ies:ies)
                 }
