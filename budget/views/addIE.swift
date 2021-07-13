@@ -76,8 +76,8 @@ struct addIE: View {
         }
 
         do {
-            try viewContext.save()
             self.showAddIE = false
+            try viewContext.save()
         } catch {
             // Error handling
         }

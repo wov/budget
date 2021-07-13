@@ -22,8 +22,8 @@ struct modifyCreatedIE: View {
     private func modify(){
         ie.amount = amount
         do {
-            try viewContext.save()
             self.showModifyIE = false
+            try viewContext.save()
         } catch {
             // Error handling
         }

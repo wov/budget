@@ -44,8 +44,8 @@ struct addAccount: View {
         newAccount.id = UUID()
         
         do {
-            try viewContext.save()
             self.showAddAccount = false
+            try viewContext.save()
         } catch {
             // Error handling
         }

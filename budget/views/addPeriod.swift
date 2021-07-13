@@ -42,8 +42,8 @@ struct addPeriod: View {
         }
         
         do {
-            try viewContext.save()
             self.showAddPeriod = false
+            try viewContext.save()
         } catch {
             // Error handling
         }

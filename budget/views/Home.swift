@@ -14,6 +14,8 @@ struct Home: View {
     
     @FetchRequest var accounts : FetchedResults<Account>
     @FetchRequest var ies : FetchedResults<CreatedIE>
+    @FetchRequest var currentPeriod : FetchedResults<Period>
+
     @State private var showAddAccount: Bool = false
 
     
@@ -21,6 +23,9 @@ struct Home: View {
         self.periodid = periodid
         self._accounts = FetchRequest(entity: Account.entity(), sortDescriptors: [])
         self._ies = FetchRequest(entity: CreatedIE.entity(), sortDescriptors: [] ,predicate: NSPredicate(format: "period == %@", periodid as CVarArg))
+        //TODO: 需要考虑到获取不到的情况
+        self._currentPeriod = FetchRequest(entity: Period.entity(),  sortDescriptors: [] ,predicate: NSPredicate(format: "id == %@", periodid as CVarArg))
+        
     }
     
     private func calcRemind() -> Float{
@@ -34,8 +39,6 @@ struct Home: View {
         }
         return remind
     }
-    
-        
     
     var body: some View {
         let remind:Float = calcRemind()
@@ -53,7 +56,7 @@ struct Home: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("2021-06")
+            .navigationTitle("\(self.currentPeriod[0].year!)-\(self.currentPeriod[0].month!)")
             .toolbar(content: {
                 Button(action: {
                     self.showAddAccount.toggle()
