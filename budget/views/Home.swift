@@ -15,8 +15,8 @@ struct Home: View {
     @FetchRequest var accounts : FetchedResults<Account>
     @FetchRequest var ies : FetchedResults<CreatedIE>
     @State private var showAddAccount: Bool = false
-    @State private var remind: Float = 0.0
 
+    
     init(_ periodid:UUID ) {
         self.periodid = periodid
         self._accounts = FetchRequest(entity: Account.entity(), sortDescriptors: [])
@@ -25,7 +25,7 @@ struct Home: View {
     
     private func calcRemind() -> Float{
         var remind: Float = 0.0
-        for  ie in ies{
+        for  ie in self.ies{
             if(ie.type == "income"){
                 remind += ie.amount
             }else if(ie.type == "expenses"){
@@ -35,8 +35,8 @@ struct Home: View {
         return remind
     }
     
-    
         
+    
     var body: some View {
         let remind:Float = calcRemind()
         NavigationView {
@@ -64,6 +64,7 @@ struct Home: View {
         }
         .sheet(isPresented: $showAddAccount, content: {
             addAccount(showAddAccount:self.$showAddAccount)
+                .environment(\.managedObjectContext, self.viewContext)
         })
     }
 }

@@ -62,6 +62,7 @@ struct AccountsRow: View {
                             }
                         }.sheet(isPresented: $showModifyIE, content: {
                             modifyCreatedIE(self.$showModifyIE,ie,ie.amount)
+                                .environment(\.managedObjectContext, self.viewContext)
                         })
                     }
                 }
@@ -75,6 +76,7 @@ struct AccountsRow: View {
                         Text("新增项目")
                     }.sheet(isPresented: $showAddIE, content: {
                         addIE(showAddIE:self.$showAddIE, account:account)
+                            .environment(\.managedObjectContext, self.viewContext)
                     })
                 }
             }
