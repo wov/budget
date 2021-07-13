@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ContentView: View {    
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var showAddPeriod: Bool = false
-//    @State private var currentPeriod: UUID? = nil
     
     @FetchRequest(
         entity: Period.entity(),
@@ -26,23 +24,55 @@ struct ContentView: View {
     ) var systems: FetchedResults<System>
     
     
-    var body: some View {
+    private func firstLunch(){
+        
+        //TODO: 这里需要去重
+        let id = UUID()
+        let date = Date()
+        
+        let newPeriod = Period(context: viewContext)
+        newPeriod.id = id
+        
+        let yearformat = DateFormatter()
+        yearformat.dateFormat = "yyyy"
+        let currentyear = yearformat.string(from: date)
+
+        let monthformat = DateFormatter()
+        monthformat.dateFormat = "MM"
+        let currentmonth = monthformat.string(from: date)
+        
+        newPeriod.year = String(currentyear)
+        newPeriod.month = String(currentmonth)
         
         if(systems.isEmpty){
-            
+            let newSystemitems = System(context: viewContext)
+            newSystemitems.currentperiod = id
+        }else{
+            let system = systems[0]
+            system.currentperiod = id
+        }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            // Error handling
+        }
+    }
+    
+    var body: some View {
+        if(periods.isEmpty){
             NavigationView{
                 VStack{
-                    Text("当前还未创建账期")
-                    Button(action: {
-                        self.showAddPeriod.toggle()
-                    }){
-                        Text("创建账期")
-                    }
+                    Text("正在初始化...")
+                    Text("请稍后")
                 }
+            }.onAppear{
+                self.firstLunch()
             }
-            .sheet(isPresented: $showAddPeriod, content: {
-                addPeriod(showAddPeriod:self.$showAddPeriod)
-            })
+//            .sheet(isPresented: $showAddPeriod, content: {
+//                addPeriod(showAddPeriod:self.$showAddPeriod)
+//                    .environment(\.managedObjectContext, self.viewContext)
+//            })
             
         }else{
             Home(systems[0].currentperiod!)
