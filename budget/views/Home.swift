@@ -15,9 +15,9 @@ struct Home: View {
     @FetchRequest var accounts : FetchedResults<Account>
     @FetchRequest var ies : FetchedResults<CreatedIE>
     @FetchRequest var currentPeriod : FetchedResults<Period>
-
+    
     @State private var showAddAccount: Bool = false
-
+    
     
     init(_ periodid:UUID ) {
         self.periodid = periodid
@@ -51,19 +51,28 @@ struct Home: View {
                         Text("\(remind.clean)")
                     }
                 }
+                
                 ForEach(accounts) { account in
                     AccountsRow(account:account,ies:ies)
                 }
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("\(self.currentPeriod[0].year!)-\(self.currentPeriod[0].month!)")
-            .toolbar(content: {
-                Button(action: {
-                    self.showAddAccount.toggle()
-                }){
-                    Text("管理账户")
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {}) {
+                        HStack() {
+                            Image(systemName: "chevron.backward")
+                            Text("月份")
+                        }
+                    }
+                };
+                ToolbarItem() {
+                    Button("管理账户") {
+                        self.showAddAccount.toggle()
+                    }
                 }
-            })
+            }
         }
         .sheet(isPresented: $showAddAccount, content: {
             addAccount(showAddAccount:self.$showAddAccount)
