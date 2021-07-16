@@ -17,11 +17,11 @@ struct ContentView: View {
         animation: .default
     ) var periods: FetchedResults<Period>
     
-    @FetchRequest(
-        entity: System.entity(),
-        sortDescriptors: [],
-        animation: .default
-    ) var systems: FetchedResults<System>
+//    @FetchRequest(
+//        entity: System.entity(),
+//        sortDescriptors: [],
+//        animation: .default
+//    ) var systems: FetchedResults<System>
     
     
     private func firstLunch(){
@@ -44,13 +44,13 @@ struct ContentView: View {
         newPeriod.year = String(currentyear)
         newPeriod.month = String(currentmonth)
         
-        if(systems.isEmpty){
-            let newSystemitems = System(context: viewContext)
-            newSystemitems.currentperiod = id
-        }else{
-            let system = systems[0]
-            system.currentperiod = id
-        }
+//        if(systems.isEmpty){
+//            let newSystemitems = System(context: viewContext)
+//            newSystemitems.currentperiod = id
+//        }else{
+//            let system = systems[0]
+//            system.currentperiod = id
+//        }
         
         do {
             try viewContext.save()
@@ -75,7 +75,7 @@ struct ContentView: View {
 //            })
             
         }else{
-            Home(systems[0].currentperiod!)
+            Home(periods[0].id!)
         }
         
         

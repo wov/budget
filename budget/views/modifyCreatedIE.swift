@@ -56,7 +56,7 @@ struct modifyCreatedIE: View {
                     HStack {
                         Text("修改金额")
                         TextField("",text:amountBinding)
-                            .keyboardType(.numberPad)
+                            .keyboardType(.decimalPad)
                     }
                 }
                 

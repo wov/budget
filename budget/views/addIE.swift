@@ -109,7 +109,7 @@ struct addIE: View {
                     HStack {
                         Text("金额")
                         TextField("",text:amountBinding)
-                            .keyboardType(.numberPad)
+                            .keyboardType(.decimalPad)
                     }
                     
                     HStack {
