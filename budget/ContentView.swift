@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {    
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var config: Configure
     
     @FetchRequest(
         entity: Period.entity(),
@@ -17,41 +19,44 @@ struct ContentView: View {
         animation: .default
     ) var periods: FetchedResults<Period>
     
-//    @FetchRequest(
-//        entity: System.entity(),
-//        sortDescriptors: [],
-//        animation: .default
-//    ) var systems: FetchedResults<System>
     
+    @FetchRequest(
+        entity: BasedIE.entity(),
+        sortDescriptors: [
+        ],
+        animation: .default
+    ) var basedies: FetchedResults<BasedIE>
     
-    private func firstLunch(){
-        
-        //TODO: 这里需要去重
+    var filteredPeriods: [Period] {
+        periods.filter { period in
+            (period.year == config.currentDate.year && period.month == config.currentDate.month)
+         }
+     }
+    
+    private func createdANewPeriod(){
         let id = UUID()
-        let date = Date()
-        
         let newPeriod = Period(context: viewContext)
         newPeriod.id = id
+        newPeriod.year = String(config.currentDate.year)
+        newPeriod.month = String(config.currentDate.month)
         
-        let yearformat = DateFormatter()
-        yearformat.dateFormat = "yyyy"
-        let currentyear = yearformat.string(from: date)
+    
+        for basedie in basedies {
+            let newCreatedIe = CreatedIE(context:viewContext)
+            newCreatedIe.account = basedie.account
+            if(basedie.amounttype == "fixedAmount"){
+                newCreatedIe.amount = basedie.amount
+            }else{
+                newCreatedIe.amount = 0
+            }
+            newCreatedIe.basedie = basedie.id
+            newCreatedIe.id = UUID()
+            newCreatedIe.name = basedie.name
+            newCreatedIe.period = id
+            newCreatedIe.type = basedie.type
+        }
+        
 
-        let monthformat = DateFormatter()
-        monthformat.dateFormat = "MM"
-        let currentmonth = monthformat.string(from: date)
-        
-        newPeriod.year = String(currentyear)
-        newPeriod.month = String(currentmonth)
-        
-//        if(systems.isEmpty){
-//            let newSystemitems = System(context: viewContext)
-//            newSystemitems.currentperiod = id
-//        }else{
-//            let system = systems[0]
-//            system.currentperiod = id
-//        }
-        
         do {
             try viewContext.save()
         } catch {
@@ -60,26 +65,18 @@ struct ContentView: View {
     }
     
     var body: some View {
-        if(periods.isEmpty){
+        if(filteredPeriods.isEmpty){
             NavigationView{
                 VStack{
                     Text("正在初始化...")
                     Text("请稍后")
                 }
             }.onAppear{
-                self.firstLunch()
+                self.createdANewPeriod()
             }
-//            .sheet(isPresented: $showAddPeriod, content: {
-//                addPeriod(showAddPeriod:self.$showAddPeriod)
-//                    .environment(\.managedObjectContext, self.viewContext)
-//            })
-            
         }else{
-            Home(periods[0].id!)
+            Home(filteredPeriods[0].id!)
         }
-        
-        
-
     }
 }
 
@@ -97,13 +94,3 @@ struct StatefulPreviewWrapper<Value, Content: View>: View {
         self.content = content
     }
 }
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-////            .environmentObject(ModelData())
-//    }
-//}
-
-

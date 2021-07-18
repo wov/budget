@@ -12,11 +12,14 @@ import CloudKit
 @main
 struct budgetApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject private var config = Configure()
+
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(config)
         }
     }
 }
