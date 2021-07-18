@@ -7,6 +7,8 @@
 
 import SwiftUI
 import CoreData
+import Foundation
+
 
 struct Home: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -37,9 +39,9 @@ struct Home: View {
         var remind: Float = 0.0
         for  ie in self.ies{
             if(ie.type == "income"){
-                remind += ie.amount
+                remind += Float(ie.amount)
             }else if(ie.type == "expenses"){
-                remind -= ie.amount
+                remind -= Float(ie.amount)
             }
         }
         return remind
@@ -54,7 +56,7 @@ struct Home: View {
                     HStack{
                         Text("本月结余")
                         Spacer()
-                        Text("\(remind.clean)")
+                        Text("\(String(format:"%.2f", remind))")
                     }
                 }
                 ForEach(accounts) { account in
