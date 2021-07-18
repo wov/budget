@@ -48,7 +48,7 @@ struct PeriodList: View {
         NavigationView {
             List{
                 ForEach(self.periods){ period in
-                    NavigationLink( destination : Home(period.id!)){
+                    NavigationLink( destination : Home(period)){
                         HStack{
                             Text( String("\(period.year!)-\(period.month!)")  )
                         }

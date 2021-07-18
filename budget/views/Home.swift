@@ -13,10 +13,10 @@ import Foundation
 struct Home: View {
     @Environment(\.managedObjectContext) private var viewContext
     var periodid:UUID
+    var currentPeriod : Period
     
     @FetchRequest var accounts : FetchedResults<Account>
     @FetchRequest var ies : FetchedResults<CreatedIE>
-    @FetchRequest var currentPeriod : FetchedResults<Period>
     
     @State private var showAddAccount: Bool = false
     
@@ -26,13 +26,12 @@ struct Home: View {
         animation: .default
     ) var basedies: FetchedResults<BasedIE>
     
-//    TODO:这里改成直接传过来period，而不是传ID
-    init(_ periodid:UUID ) {
-        self.periodid = periodid
+    init(_ period:Period ) {
+        self.periodid = period.id!
+        self.currentPeriod = period //FetchRequest(entity: Period.entity(),  sortDescriptors: [] ,predicate: NSPredicate(format: "id == %@", periodid as CVarArg))
+
         self._accounts = FetchRequest(entity: Account.entity(), sortDescriptors: [])
         self._ies = FetchRequest(entity: CreatedIE.entity(), sortDescriptors: [] ,predicate: NSPredicate(format: "period == %@", periodid as CVarArg))
-        //TODO: 需要考虑到获取不到的情况
-        self._currentPeriod = FetchRequest(entity: Period.entity(),  sortDescriptors: [] ,predicate: NSPredicate(format: "id == %@", periodid as CVarArg))
     }
     
     private func calcRemind() -> Float{
@@ -47,7 +46,6 @@ struct Home: View {
         return remind
     }
 
-
     var body: some View {
         let remind:Float = calcRemind()
         VStack {
@@ -60,11 +58,11 @@ struct Home: View {
                     }
                 }
                 ForEach(accounts) { account in
-                    AccountsRow(account:account,ies:ies)
+                    AccountsRow(account:account,period:currentPeriod, ies:ies)
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("\(self.currentPeriod[0].year!)-\(self.currentPeriod[0].month!)")
+            .navigationTitle("\(self.currentPeriod.year!)-\(self.currentPeriod.month!)")
             .toolbar{
                 ToolbarItem() {
                     Button("管理账户") {

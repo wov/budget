@@ -29,17 +29,7 @@ struct modifyCreatedIE: View {
         }
     }
     
-//    private func deleteIe(){
-//        viewContext.delete(self.ie)
-//        do {
-//            try viewContext.save()
-//            self.showModifyIE = false
-//        } catch {
-//
-//        }
-//    }
-    
-    
+
     var body: some View {
         let amountBinding = Binding<String>(get: {
             self.amount == 0 ?
@@ -50,7 +40,6 @@ struct modifyCreatedIE: View {
         })
         
         NavigationView{
-            
             Form{
                 Section{
                     HStack {
@@ -59,19 +48,6 @@ struct modifyCreatedIE: View {
                             .keyboardType(.decimalPad)
                     }
                 }
-                
-                //TODO: 等iOS 15.0 正式版可以使用buttonRole...，现在不管了
-//                Section{
-//                    HStack {
-//                        Button(
-//                            action: {
-//                                self.deleteIe()
-//                            }){
-//                            Text("删除")
-//                        }
-//                    }
-//                }
-                
             }
             
             .navigationBarTitle(ie.name!, displayMode: .inline)

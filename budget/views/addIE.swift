@@ -10,14 +10,16 @@ import SwiftUI
 struct addIE: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var showAddIE: Bool
-    
-    @FetchRequest(
-        entity: System.entity(),
-        sortDescriptors: [],
-        animation: .default
-    ) var systemitems: FetchedResults<System>
-    
+    var period:Period
     let account:Account
+
+////    BUG:这里需要改成使用当前的period 而不是使用system中的配置
+//    @FetchRequest(
+//        entity: System.entity(),
+//        sortDescriptors: [],
+//        animation: .default
+//    ) var systemitems: FetchedResults<System>
+    
     
     @State private var name: String = ""
     @State private var amount: Float = 0.0
@@ -45,13 +47,14 @@ struct addIE: View {
     
     private func addIE(){
         let newCreatedIE = CreatedIE(context: viewContext)
+        let date = Date()
         newCreatedIE.id = UUID()
         newCreatedIE.account = account.id
         newCreatedIE.amount = amount
         newCreatedIE.name = name
         newCreatedIE.type = accountType.rawValue
-        
-        
+        newCreatedIE.date = date
+                
         if(isrepeat){
             let newBasedIE = BasedIE(context: viewContext)
             let basedID = UUID()
@@ -70,10 +73,7 @@ struct addIE: View {
             }
         }
         
-        
-        if(!systemitems.isEmpty){
-            newCreatedIE.period = systemitems[0].currentperiod
-        }
+        newCreatedIE.period = period.id
 
         do {
             self.showAddIE = false

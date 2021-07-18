@@ -104,18 +104,18 @@ struct addAccount: View {
                 }
 
                 Section(header:Text("滑动删除basedies，调试用")){
-                    ForEach(self.ies){ account in
+                    ForEach(self.ies){ ie in
                         HStack{
-                            Text(account.name!)
+                            Text(ie.name!)
                         }
                     }.onDelete(perform: deleteIes)
                 }
                 
                 
                 Section(header:Text("滑动删除createdies，调试用")){
-                    ForEach(self.cies){ account in
+                    ForEach(self.cies){ cie in
                         HStack{
-                            Text(account.name!)
+                            Text(  String("\(cie.name!)-\(cie.period)")  )
                         }
                     }.onDelete(perform: deleteCies)
                 }

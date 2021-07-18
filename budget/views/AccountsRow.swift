@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct AccountsRow: View {
-    
+    @Environment(\.managedObjectContext) private var viewContext
+
     var account : Account
+    var period: Period
     var ies : FetchedResults<CreatedIE>
     
-    @Environment(\.managedObjectContext) private var viewContext
     @State private var showAddIE: Bool = false
     @State private var showModifyIE: Bool = false
 
@@ -75,7 +76,7 @@ struct AccountsRow: View {
                     }){
                         Text("新增项目")
                     }.sheet(isPresented: $showAddIE, content: {
-                        addIE(showAddIE:self.$showAddIE, account:account)
+                        addIE(showAddIE:self.$showAddIE, period: period, account: account)
                             .environment(\.managedObjectContext, self.viewContext)
                     })
                 }
