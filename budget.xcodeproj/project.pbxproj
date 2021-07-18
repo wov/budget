@@ -17,6 +17,7 @@
 		831F994B2684B6270076B082 /* budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 831F99492684B6270076B082 /* budget.xcdatamodeld */; };
 		831F99562684B6270076B082 /* budgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F99552684B6270076B082 /* budgetTests.swift */; };
 		831F99612684B6270076B082 /* budgetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F99602684B6270076B082 /* budgetUITests.swift */; };
+		8361792226A431FE00BBFDA4 /* PeriodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8361792126A431FE00BBFDA4 /* PeriodList.swift */; };
 		836F21612688B419003806F2 /* IncomeAndExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836F21602688B419003806F2 /* IncomeAndExpenses.swift */; };
 		836F2163268A1199003806F2 /* AccountsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836F2162268A1199003806F2 /* AccountsRow.swift */; };
 		837BA95D2699DAA90040DEF6 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837BA95C2699DAA90040DEF6 /* Formatter.swift */; };
@@ -61,6 +62,7 @@
 		831F995C2684B6270076B082 /* budgetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = budgetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		831F99602684B6270076B082 /* budgetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = budgetUITests.swift; sourceTree = "<group>"; };
 		831F99622684B6270076B082 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8361792126A431FE00BBFDA4 /* PeriodList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodList.swift; sourceTree = "<group>"; };
 		836F21602688B419003806F2 /* IncomeAndExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeAndExpenses.swift; sourceTree = "<group>"; };
 		836F2162268A1199003806F2 /* AccountsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsRow.swift; sourceTree = "<group>"; };
 		837BA95C2699DAA90040DEF6 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				83AC184026996AC0008F9A57 /* addAccount.swift */,
 				83AC1842269994A7008F9A57 /* addIE.swift */,
 				837BA960269B0A5C0040DEF6 /* modifyCreatedIE.swift */,
+				8361792126A431FE00BBFDA4 /* PeriodList.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				8382F8F2268CAAA100EFF7B2 /* Home.swift in Sources */,
 				837BA95D2699DAA90040DEF6 /* Formatter.swift in Sources */,
 				831F993F2684B6230076B082 /* budgetApp.swift in Sources */,
+				8361792226A431FE00BBFDA4 /* PeriodList.swift in Sources */,
 				837BA961269B0A5C0040DEF6 /* modifyCreatedIE.swift in Sources */,
 				836F21612688B419003806F2 /* IncomeAndExpenses.swift in Sources */,
 				836F2163268A1199003806F2 /* AccountsRow.swift in Sources */,

@@ -50,7 +50,7 @@ struct Home: View {
 
     var body: some View {
         let remind:Float = calcRemind()
-        NavigationView {
+        VStack {
             List{
                 Section{
                     HStack{
@@ -66,14 +66,6 @@ struct Home: View {
             .listStyle(GroupedListStyle())
             .navigationTitle("\(self.currentPeriod[0].year!)-\(self.currentPeriod[0].month!)")
             .toolbar{
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {}) {
-                        HStack() {
-                            Image(systemName: "chevron.backward")
-                            Text("月份")
-                        }
-                    }
-                };
                 ToolbarItem() {
                     Button("管理账户") {
                         self.showAddAccount.toggle()

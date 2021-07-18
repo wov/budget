@@ -73,7 +73,8 @@ struct ContentView: View {
                 self.createdANewPeriod()
             }
         }else{
-            Home(filteredPeriods[0].id!)
+            PeriodList()
+//            Home(filteredPeriods[0].id!)
         }
     }
 }
