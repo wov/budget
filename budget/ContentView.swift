@@ -40,8 +40,8 @@ struct ContentView: View {
         newPeriod.year = String(config.currentDate.year)
         newPeriod.month = String(config.currentDate.month)
         
-    
         for basedie in basedies {
+//            TODO: 如果basedie中包含了 截止日期，且截止日期小于这个月就不要创建了。
             let newCreatedIe = CreatedIE(context:viewContext)
             newCreatedIe.account = basedie.account
             if(basedie.amounttype == "fixedAmount"){
@@ -55,8 +55,6 @@ struct ContentView: View {
             newCreatedIe.period = id
             newCreatedIe.type = basedie.type
         }
-        
-
         do {
             try viewContext.save()
         } catch {

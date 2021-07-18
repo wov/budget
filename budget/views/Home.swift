@@ -24,7 +24,7 @@ struct Home: View {
         animation: .default
     ) var basedies: FetchedResults<BasedIE>
     
-//    TODO:这里改成直接传过来的
+//    TODO:这里改成直接传过来period，而不是传ID
     init(_ periodid:UUID ) {
         self.periodid = periodid
         self._accounts = FetchRequest(entity: Account.entity(), sortDescriptors: [])
