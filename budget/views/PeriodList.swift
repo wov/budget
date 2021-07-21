@@ -22,7 +22,6 @@ struct PeriodList: View {
         animation: .default
     ) var createdies: FetchedResults<CreatedIE>
     
-    
     private func deletePeriods(offsets: IndexSet){
         for offset in offsets {
             let period = periods[offset]

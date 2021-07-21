@@ -13,21 +13,11 @@ struct addIE: View {
     var period:Period
     let account:Account
 
-////    BUG:这里需要改成使用当前的period 而不是使用system中的配置
-//    @FetchRequest(
-//        entity: System.entity(),
-//        sortDescriptors: [],
-//        animation: .default
-//    ) var systemitems: FetchedResults<System>
-    
-    
     @State private var name: String = ""
     @State private var amount: Float = 0.0
     @State private var end: Date = Date()
     @State private var isrepeat: Bool = false
-    
     @State private var hasEnd: Bool = false
-    
     
     enum type: String,CaseIterable,Identifiable {
         case income
@@ -82,7 +72,6 @@ struct addIE: View {
             // Error handling
         }
     }
-    
     
     var body: some View {
         let amountBinding = Binding<String>(get: {

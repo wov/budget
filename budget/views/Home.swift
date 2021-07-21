@@ -20,11 +20,11 @@ struct Home: View {
     
     @State private var showAddAccount: Bool = false
     
-    @FetchRequest(
-        entity: BasedIE.entity(),
-        sortDescriptors: [],
-        animation: .default
-    ) var basedies: FetchedResults<BasedIE>
+//    @FetchRequest(
+//        entity: BasedIE.entity(),
+//        sortDescriptors: [],
+//        animation: .default
+//    ) var basedies: FetchedResults<BasedIE>
     
     init(_ period:Period ) {
         self.periodid = period.id!
@@ -60,6 +60,13 @@ struct Home: View {
                 ForEach(accounts) { account in
                     AccountsRow(account:account,period:currentPeriod, ies:ies)
                 }
+                
+                
+                Section{
+                        
+                    
+                }
+                
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("\(self.currentPeriod.year!)-\(self.currentPeriod.month!)")

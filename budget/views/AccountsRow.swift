@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AccountsRow: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -15,15 +16,14 @@ struct AccountsRow: View {
     //    TODO: 这里是否需要改成和account关联的ie呢？
     var ies : FetchedResults<CreatedIE>
     
-    @FetchRequest(
-        entity: BasedIE.entity(),
-        sortDescriptors: [],
-        animation: .default
-    ) var basedies: FetchedResults<BasedIE>
+//    @FetchRequest(
+//        entity: BasedIE.entity(),
+//        sortDescriptors: [],
+//        animation: .default
+//    ) var basedies: FetchedResults<BasedIE>
     
     @State private var showAddIE: Bool = false
     @State private var showModifyIE: Bool = false
-    
     
     private func deleteIes(offsets: IndexSet){
         offsets.map{ ies[$0] }.forEach(viewContext.delete)
@@ -34,32 +34,39 @@ struct AccountsRow: View {
         }
     }
     
+    private func getBasedIE(id:UUID) -> BasedIE?{
+        var bies:[BasedIE] = []
+        do {
+            let request:NSFetchRequest<BasedIE> = BasedIE.fetchRequest()
+            request.predicate =  NSPredicate(format: "id == %@", id as CVarArg)
+            bies = try viewContext.fetch(request) as [BasedIE]
+        } catch let error as NSError {
+            print("Error in fetch :\(error)")
+        }
+        return bies.first
+    }
     
     private func getSubTitle(ie:CreatedIE) -> String{
-        
-        //        let basedie = basedies.first(where: {$0.id == ie.basedie})
-        
-        let bies = basedies.filter { $0.id == ie.basedie }
         var subTitle:String = ""
-        
-        if(!bies.isEmpty){
-            let bie = bies.first
+
+        if(ie.basedie != nil){
+            let bie = self.getBasedIE(id: ie.basedie!)
             if(bie?.amounttype == "dynamicAmount"){
                 subTitle += "动态"
             }
             if(bie?.amounttype == "fixedAmount"){
                 subTitle += "固定"
             }
+            
+        }else {
+//            return ""
         }
-
         if(ie.type == "income"){
             subTitle += "收入"
         }
-        
         if(ie.type == "expenses"){
             subTitle += "支出"
         }
-        
         return subTitle
     }
     
@@ -71,6 +78,8 @@ struct AccountsRow: View {
             ForEach(self.ies){ ie in
                 if(ie.account == account.id){
                     let subTitle = getSubTitle(ie:ie)
+                    let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
+                
                     HStack{
                         VStack(alignment: .leading){
                             Text(subTitle)
@@ -89,7 +98,7 @@ struct AccountsRow: View {
                                 Image(systemName: "chevron.right")
                             }
                         }.sheet(isPresented: $showModifyIE, content: {
-                            modifyCreatedIE(self.$showModifyIE,ie,ie.amount)
+                            modifyCreatedIE(self.$showModifyIE,ie,basedie)
                                 .environment(\.managedObjectContext, self.viewContext)
                         })
                     }
