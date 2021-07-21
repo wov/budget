@@ -10,47 +10,58 @@ import CoreData
 struct modifyCreatedIE: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var showModifyIE: Bool
-
+    
     var ie:CreatedIE
     var basedie:BasedIE?
     
     @State private var amount: Float
     @State private var name: String
     @State private var basedName: String
-//    @State private var basedAmount: Float = 0.0
-//    @State private var basedEnd: Date = Date()
-//    @State private var basedIsRepeat: Bool = false
-//    @State private var basedHasEnd: Bool = false
+//    @State private var title: String
 //
-//    enum basedType: String,CaseIterable,Identifiable {
-//        case income
-//        case expenses
-//        var id: String{ self.rawValue }
-//    }
-//
-//    enum basedAmountTypes: String,CaseIterable,Identifiable {
-//        case dynamicAmount
-//        case fixedAmount
+//    enum changeTypes: String,CaseIterable,Identifiable {
+//        case onlyOnce
+//        case onlyNew
+//        case changeAll
 //        var id: String{ self.rawValue}
 //    }
-//
-//    @State private var basedAccountType = basedType.expenses
-//    @State private var basedAmountType = basedAmountTypes.fixedAmount
-//
+//    @State private var changeType = changeTypes.onlyOnce
+    
+    
+    enum type: String,CaseIterable,Identifiable {
+        case income
+        case expenses
+        var id: String{ self.rawValue }
+    }
+    
+    @State private var accountType:type
+
     
     init(_ showModifyIE: Binding<Bool>, _ ie: CreatedIE , _ basedie: BasedIE?) {
         self._showModifyIE = showModifyIE
         self.ie = ie
         self.basedie = basedie
+//        self.title = title
         
         self.amount = ie.amount
         self.name = ie.name ?? ""
         self.basedName = basedie?.name ?? ""
-        
+        self.accountType = modifyCreatedIE.type.allCases.filter{$0.rawValue == ie.type}.first!
     }
     
     private func modify(){
+        ie.name = name
+        ie.type = accountType.rawValue
         ie.amount = amount
+        
+        if(basedie != nil){
+            basedie?.name = name
+            if(basedie?.amounttype == "fixedAmount"){
+                basedie?.type = accountType.rawValue
+                basedie?.amount = amount
+            }
+        }
+        
         do {
             self.showModifyIE = false
             try viewContext.save()
@@ -83,27 +94,31 @@ struct modifyCreatedIE: View {
         
         NavigationView{
             Form{
-                Section(header: Text("修改本次")){
+                Section{
                     HStack{
                         Text("名称")
                         TextField("",text:$name)
                     }
+                    
                     HStack {
                         Text("金额")
                         TextField("",text:amountBinding)
                             .keyboardType(.decimalPad)
                     }
-                }
-                
-                if((self.basedie) != nil){
-//                    let basedies = self.getBasedIE(id:ie.basedie!)
-                    Section(header: Text("修改基础")){
-                        HStack{
-                            Text("名称")
-                            TextField("",text:$basedName)
-                        }
+                    
+                    Picker("类型",selection : $accountType){
+                        Text("收入").tag(type.income)
+                        Text("支出").tag(type.expenses)
                     }
                 }
+                
+//                Section(header :Text("历史记录")){
+//                    HStack{
+//                        Text("名称")
+//                        TextField("",text:$name)
+//                    }
+//                }
+                
             }
             .navigationBarTitle(ie.name!, displayMode: .inline)
             .navigationBarItems(leading:
