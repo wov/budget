@@ -17,17 +17,7 @@ struct modifyCreatedIE: View {
     @State private var amount: Float
     @State private var name: String
     @State private var basedName: String
-//    @State private var title: String
-//
-//    enum changeTypes: String,CaseIterable,Identifiable {
-//        case onlyOnce
-//        case onlyNew
-//        case changeAll
-//        var id: String{ self.rawValue}
-//    }
-//    @State private var changeType = changeTypes.onlyOnce
-    
-    
+
     enum type: String,CaseIterable,Identifiable {
         case income
         case expenses
@@ -41,12 +31,12 @@ struct modifyCreatedIE: View {
         self._showModifyIE = showModifyIE
         self.ie = ie
         self.basedie = basedie
-//        self.title = title
         
         self.amount = ie.amount
         self.name = ie.name ?? ""
         self.basedName = basedie?.name ?? ""
-        self.accountType = modifyCreatedIE.type.allCases.filter{$0.rawValue == ie.type}.first!
+
+        self.accountType = modifyCreatedIE.type.allCases.filter{$0.rawValue == ie.type}.first ?? type.expenses
     }
     
     private func modify(){
@@ -111,14 +101,6 @@ struct modifyCreatedIE: View {
                         Text("支出").tag(type.expenses)
                     }
                 }
-                
-//                Section(header :Text("历史记录")){
-//                    HStack{
-//                        Text("名称")
-//                        TextField("",text:$name)
-//                    }
-//                }
-                
             }
             .navigationBarTitle(ie.name!, displayMode: .inline)
             .navigationBarItems(leading:

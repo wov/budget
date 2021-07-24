@@ -20,12 +20,6 @@ struct Home: View {
     
     @State private var showAddAccount: Bool = false
     
-//    @FetchRequest(
-//        entity: BasedIE.entity(),
-//        sortDescriptors: [],
-//        animation: .default
-//    ) var basedies: FetchedResults<BasedIE>
-    
     init(_ period:Period ) {
         self.periodid = period.id!
         self.currentPeriod = period //FetchRequest(entity: Period.entity(),  sortDescriptors: [] ,predicate: NSPredicate(format: "id == %@", periodid as CVarArg))
@@ -58,9 +52,8 @@ struct Home: View {
                     }
                 }
                 ForEach(accounts) { account in
-                    AccountsRow(account:account,period:currentPeriod, ies:ies)
+                    AccountsRow(account:account,period:currentPeriod)
                 }
-                
                 
                 Section{
                         

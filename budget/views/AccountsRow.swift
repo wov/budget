@@ -10,20 +10,24 @@ import CoreData
 
 struct AccountsRow: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
     var account : Account
     var period: Period
-    //    TODO: 这里是否需要改成和account关联的ie呢？
-    var ies : FetchedResults<CreatedIE>
     
-//    @FetchRequest(
-//        entity: BasedIE.entity(),
-//        sortDescriptors: [],
-//        animation: .default
-//    ) var basedies: FetchedResults<BasedIE>
-    
+    @FetchRequest var ies : FetchedResults<CreatedIE>
     @State private var showAddIE: Bool = false
     @State private var showModifyIE: Bool = false
+    
+  
+    
+    init(account: Account,period: Period) {
+        self.account = account
+        self.period = period
+        self._ies = FetchRequest(entity: CreatedIE.entity(),
+                                 sortDescriptors: [  NSSortDescriptor(keyPath: \BasedIE.type, ascending: false),
+                                                     NSSortDescriptor(keyPath: \BasedIE.amount, ascending: false)] ,
+                                 predicate: NSPredicate(format: "period == %@ AND account = %@", period.id! as CVarArg , account.id! as CVarArg))
+    }
+    
     
     private func deleteIes(offsets: IndexSet){
         offsets.map{ ies[$0] }.forEach(viewContext.delete)
@@ -58,8 +62,6 @@ struct AccountsRow: View {
                 subTitle += "固定"
             }
             
-        }else {
-//            return ""
         }
         if(ie.type == "income"){
             subTitle += "收入"
@@ -70,16 +72,24 @@ struct AccountsRow: View {
         return subTitle
     }
     
+//    private func getHeaderTitle(ie:CreatedIE) -> String{
+//        var title:String = ""
+//
+//
+//
+//
+//        return title
+//    }
+    
     
     
     var body: some View {
-        Section(header: Text(account.name ?? "")){
-            
+        
+    
+        Section(header: Text( account.name ?? "" )){
             ForEach(self.ies){ ie in
-                if(ie.account == account.id){
                     let subTitle = getSubTitle(ie:ie)
                     let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
-                
                     HStack{
                         VStack(alignment: .leading){
                             Text(subTitle)
@@ -102,7 +112,6 @@ struct AccountsRow: View {
                                 .environment(\.managedObjectContext, self.viewContext)
                         })
                     }
-                }
             }.onDelete(perform: deleteIes)
             
             HStack{

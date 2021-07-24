@@ -35,6 +35,13 @@ struct addIE: View {
     @State private var amountType = amountTypes.fixedAmount
     
     
+    private func useDateAsName(){
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "MM-dd"
+        name += format.string(from: date)
+    }
+    
     private func addIE(){
         let newCreatedIE = CreatedIE(context: viewContext)
         let date = Date()
@@ -87,7 +94,12 @@ struct addIE: View {
                 Section{
                     HStack {
                         Text("名称")
-                        TextField("",text:$name)
+                        TextField("名称",text:$name)
+                        Button(action: {
+                            self.useDateAsName()
+                        }, label: {
+                            Text("插入日期")
+                        })
                     }
                     
                     Picker("类型",selection : $accountType){
@@ -97,7 +109,7 @@ struct addIE: View {
                     
                     HStack {
                         Text("金额")
-                        TextField("",text:amountBinding)
+                        TextField("金额",text:amountBinding)
                             .keyboardType(.decimalPad)
                     }
                     
