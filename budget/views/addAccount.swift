@@ -95,7 +95,7 @@ struct addAccount: View {
                     }
                 }
                 
-                Section(header:Text("滑动删除账号")){
+                Section(header:Text("所有账户")){
                     ForEach(self.accounts){ account in
                         HStack{
                             Text(account.name!)
@@ -103,22 +103,22 @@ struct addAccount: View {
                     }.onDelete(perform: deleteAccounts)
                 }
 
-                Section(header:Text("滑动删除basedies，调试用")){
-                    ForEach(self.ies){ ie in
-                        HStack{
-                            Text(ie.name!)
-                        }
-                    }.onDelete(perform: deleteIes)
-                }
-                
-                
-                Section(header:Text("滑动删除createdies，调试用")){
-                    ForEach(self.cies){ cie in
-                        HStack{
-                            Text(  String("\(cie.name!)-\(cie.period)")  )
-                        }
-                    }.onDelete(perform: deleteCies)
-                }
+//                Section(header:Text("滑动删除basedies，调试用")){
+//                    ForEach(self.ies){ ie in
+//                        HStack{
+//                            Text(ie.name!)
+//                        }
+//                    }.onDelete(perform: deleteIes)
+//                }
+//
+//
+//                Section(header:Text("滑动删除createdies，调试用")){
+//                    ForEach(self.cies){ cie in
+//                        HStack{
+//                            Text(  String("\(cie.name!)-\(cie.period)")  )
+//                        }
+//                    }.onDelete(perform: deleteCies)
+//                }
                 
                 
             }

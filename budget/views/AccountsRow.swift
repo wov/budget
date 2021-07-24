@@ -103,7 +103,7 @@ struct AccountsRow: View {
                             self.showModifyIE.toggle()
                         }){
                             HStack{
-                                Text("\(ie.amount.clean)")
+                                Text("\(String(format:"%.2f", ie.amount))")
                                     .foregroundColor(ie.type! == "income" ? .red : .green)
                                 Image(systemName: "chevron.right")
                             }

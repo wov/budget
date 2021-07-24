@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 import Foundation
 
-
 struct Home: View {
     @Environment(\.managedObjectContext) private var viewContext
     var periodid:UUID
@@ -65,7 +64,7 @@ struct Home: View {
             .navigationTitle("\(self.currentPeriod.year!)-\(self.currentPeriod.month!)")
             .toolbar{
                 ToolbarItem() {
-                    Button("管理账户") {
+                    Button("新增账户") {
                         self.showAddAccount.toggle()
                     }
                 }
