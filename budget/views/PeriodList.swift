@@ -42,7 +42,6 @@ struct PeriodList: View {
         }
     }
     
-    
     var body: some View {
         NavigationView {
             List{
