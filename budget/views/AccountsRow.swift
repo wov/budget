@@ -17,14 +17,13 @@ struct AccountsRow: View {
     @State private var showAddIE: Bool = false
     @State private var showModifyIE: Bool = false
     
-  
-    
+
     init(account: Account,period: Period) {
         self.account = account
         self.period = period
         self._ies = FetchRequest(entity: CreatedIE.entity(),
-                                 sortDescriptors: [  NSSortDescriptor(keyPath: \BasedIE.type, ascending: false),
-                                                     NSSortDescriptor(keyPath: \BasedIE.amount, ascending: false)] ,
+                                 sortDescriptors: [  NSSortDescriptor(keyPath: \CreatedIE.type, ascending: false),
+                                                     NSSortDescriptor(keyPath: \CreatedIE.amount, ascending: false)] ,
                                  predicate: NSPredicate(format: "period == %@ AND account = %@", period.id! as CVarArg , account.id! as CVarArg))
     }
     
@@ -71,16 +70,6 @@ struct AccountsRow: View {
         }
         return subTitle
     }
-    
-//    private func getHeaderTitle(ie:CreatedIE) -> String{
-//        var title:String = ""
-//
-//
-//
-//
-//        return title
-//    }
-    
     
     
     var body: some View {

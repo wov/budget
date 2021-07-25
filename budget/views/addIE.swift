@@ -60,7 +60,7 @@ struct addIE: View {
             newBasedIE.account = account.id
             newBasedIE.type = accountType.rawValue
             newBasedIE.name = name
-            newBasedIE.amount = amount
+            newBasedIE.baseamount = amount
             newBasedIE.amounttype = amountType.rawValue
     
             newCreatedIE.basedie = basedID

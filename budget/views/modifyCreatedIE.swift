@@ -24,7 +24,7 @@ struct modifyCreatedIE: View {
         var id: String{ self.rawValue }
     }
     
-    @State private var accountType:type
+//    @State private var accountType:type
 
     
     init(_ showModifyIE: Binding<Bool>, _ ie: CreatedIE , _ basedie: BasedIE?) {
@@ -35,20 +35,20 @@ struct modifyCreatedIE: View {
         self.amount = ie.amount
         self.name = ie.name ?? ""
         self.basedName = basedie?.name ?? ""
-
-        self.accountType = modifyCreatedIE.type.allCases.filter{$0.rawValue == ie.type}.first ?? type.expenses
+        
+//        self.accountType = modifyCreatedIE.type.allCases.filter{$0.rawValue == ie.type}.first ?? type.expenses
     }
     
     private func modify(){
         ie.name = name
-        ie.type = accountType.rawValue
+//        ie.type = accountType.rawValue
         ie.amount = amount
         
         if(basedie != nil){
             basedie?.name = name
             if(basedie?.amounttype == "fixedAmount"){
-                basedie?.type = accountType.rawValue
-                basedie?.amount = amount
+//                basedie?.type = accountType.rawValue
+                basedie?.baseamount = amount 
             }
         }
         
@@ -96,10 +96,11 @@ struct modifyCreatedIE: View {
                             .keyboardType(.decimalPad)
                     }
                     
-                    Picker("类型",selection : $accountType){
-                        Text("收入").tag(type.income)
-                        Text("支出").tag(type.expenses)
-                    }
+                    
+//                    Picker("类型",selection : $accountType){
+//                        Text("收入").tag(type.income)
+//                        Text("支出").tag(type.expenses)
+//                    }
                 }
             }
             .navigationBarTitle(ie.name!, displayMode: .inline)

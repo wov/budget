@@ -45,7 +45,7 @@ struct ContentView: View {
             let newCreatedIe = CreatedIE(context:viewContext)
             newCreatedIe.account = basedie.account
             if(basedie.amounttype == "fixedAmount"){
-                newCreatedIe.amount = basedie.amount
+                newCreatedIe.amount = basedie.baseamount
             }else{
                 newCreatedIe.amount = 0
             }
