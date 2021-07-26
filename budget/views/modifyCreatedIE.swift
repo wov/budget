@@ -14,44 +14,22 @@ struct modifyCreatedIE: View {
     var ie:CreatedIE
     var basedie:BasedIE?
     
-    @State private var amount: Float
-    @State private var name: String
-    @State private var basedName: String
-
-    enum type: String,CaseIterable,Identifiable {
-        case income
-        case expenses
-        var id: String{ self.rawValue }
-    }
-    
-//    @State private var accountType:type
-
-    
-    init(_ showModifyIE: Binding<Bool>, _ ie: CreatedIE , _ basedie: BasedIE?) {
-        self._showModifyIE = showModifyIE
-        self.ie = ie
-        self.basedie = basedie
-        
-        self.amount = ie.amount
-        self.name = ie.name ?? ""
-        self.basedName = basedie?.name ?? ""
-        
-//        self.accountType = modifyCreatedIE.type.allCases.filter{$0.rawValue == ie.type}.first ?? type.expenses
-    }
+    @State var amount: Float
+    @State var name: String
+    @State var accountType: String
     
     private func modify(){
         ie.name = name
-//        ie.type = accountType.rawValue
         ie.amount = amount
+        ie.type = accountType
         
         if(basedie != nil){
             basedie?.name = name
             if(basedie?.amounttype == "fixedAmount"){
-//                basedie?.type = accountType.rawValue
-                basedie?.baseamount = amount 
+                basedie?.baseamount = amount
+                basedie?.type = accountType
             }
         }
-        
         do {
             self.showModifyIE = false
             try viewContext.save()
@@ -59,19 +37,6 @@ struct modifyCreatedIE: View {
             
         }
     }
-    
-    private func getBasedIE(id:UUID) -> [BasedIE]{
-        var bies:[BasedIE] = []
-        do {
-            let request:NSFetchRequest<BasedIE> = BasedIE.fetchRequest()
-            request.predicate =  NSPredicate(format: "id == %@", id as CVarArg)
-            bies = try viewContext.fetch(request) as [BasedIE]
-        } catch let error as NSError {
-            print("Error in fetch :\(error)")
-        }
-        return bies
-    }
-    
     
     var body: some View {
         let amountBinding = Binding<String>(get: {
@@ -89,18 +54,17 @@ struct modifyCreatedIE: View {
                         Text("名称")
                         TextField("",text:$name)
                     }
-                    
+
                     HStack {
                         Text("金额")
                         TextField("",text:amountBinding)
                             .keyboardType(.decimalPad)
                     }
                     
-                    
-//                    Picker("类型",selection : $accountType){
-//                        Text("收入").tag(type.income)
-//                        Text("支出").tag(type.expenses)
-//                    }
+                    Picker("类型",selection : $accountType){
+                        Text("收入").tag("income")
+                        Text("支出").tag("expenses")
+                    }
                 }
             }
             .navigationBarTitle(ie.name!, displayMode: .inline)

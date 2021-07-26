@@ -73,8 +73,6 @@ struct AccountsRow: View {
     
     
     var body: some View {
-        
-    
         Section(header: Text( account.name ?? "" )){
             ForEach(self.ies){ ie in
                     let subTitle = getSubTitle(ie:ie)
@@ -97,7 +95,7 @@ struct AccountsRow: View {
                                 Image(systemName: "chevron.right")
                             }
                         }.sheet(isPresented: $showModifyIE, content: {
-                            modifyCreatedIE(self.$showModifyIE,ie,basedie)
+                            modifyCreatedIE(showModifyIE:self.$showModifyIE,ie:ie,basedie: basedie,amount:ie.amount,name:ie.name!,accountType: ie.type!)
                                 .environment(\.managedObjectContext, self.viewContext)
                         })
                     }
