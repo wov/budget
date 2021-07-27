@@ -9,6 +9,7 @@ import Foundation
 
 final class Configure: ObservableObject {
     @Published var currentDate = getCurrentYearAndMonth()
+    @Published var currentPeriod : UUID?
 }
  
 func getCurrentYearAndMonth() -> (year:String,month:String){

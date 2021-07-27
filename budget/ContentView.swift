@@ -20,62 +20,18 @@ struct ContentView: View {
     ) var periods: FetchedResults<Period>
     
     
-    @FetchRequest(
-        entity: BasedIE.entity(),
-        sortDescriptors: [
-        ],
-        animation: .default
-    ) var basedies: FetchedResults<BasedIE>
-    
     var filteredPeriods: [Period] {
         periods.filter { period in
-            (period.year == config.currentDate.year && period.month == config.currentDate.month)
+            period.id == config.currentPeriod
          }
      }
-    
-    private func createdANewPeriod(){
-        let id = UUID()
-        let newPeriod = Period(context: viewContext)
-        newPeriod.id = id
-        newPeriod.year = String(config.currentDate.year)
-        newPeriod.month = String(config.currentDate.month)
-        
-        for basedie in basedies {
-//            TODO: 如果basedie中包含了 截止日期，且截止日期小于这个月就不要创建了。
-            let newCreatedIe = CreatedIE(context:viewContext)
-            newCreatedIe.account = basedie.account
-            if(basedie.amounttype == "fixedAmount"){
-                newCreatedIe.amount = basedie.baseamount
-            }else{
-                newCreatedIe.amount = 0
-            }
-            newCreatedIe.basedie = basedie.id
-            newCreatedIe.id = UUID()
-            newCreatedIe.name = basedie.name
-            newCreatedIe.period = id
-            newCreatedIe.type = basedie.type
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Error handling
-        }
-    }
-    
+
     var body: some View {
-        if(filteredPeriods.isEmpty){
-            NavigationView{
-                VStack{
-                    Text("正在初始化...")
-                    Text("请稍后")
-                }
-            }.onAppear{
-                self.createdANewPeriod()
-            }
-        }else{
+//        if(filteredPeriods.isEmpty){
             PeriodList()
-//            Home(filteredPeriods[0].id!)
-        }
+//        }else{
+//            Home(filteredPeriods.first!)
+//        }
     }
 }
 

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PeriodList: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var config: Configure
+
+    @State private var showAddPeroid: Bool = false
     
     @FetchRequest(
         entity: Period.entity(),
@@ -55,7 +58,18 @@ struct PeriodList: View {
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("选择月份")
+            .toolbar{
+                ToolbarItem() {
+                    Button("添加") {
+                        self.showAddPeroid.toggle()
+                    }
+                }
+            }
         }
+        .sheet(isPresented: $showAddPeroid, content: {
+            addPeriod(showAddPeroid: self.$showAddPeroid, year: config.currentDate.year , month: config.currentDate.month)
+                .environment(\.managedObjectContext, self.viewContext)
+        })
     }
 }
 

@@ -17,7 +17,6 @@ struct AccountsRow: View {
     @State private var showAddIE: Bool = false
     @State private var showModifyIE: Bool = false
     
-
     init(account: Account,period: Period) {
         self.account = account
         self.period = period
@@ -106,7 +105,7 @@ struct AccountsRow: View {
                     Button( action: {
                         self.showAddIE.toggle()
                     }){
-                        Text("新增项目")
+                        Text("新增条目")
                     }.sheet(isPresented: $showAddIE, content: {
                         addIE(showAddIE:self.$showAddIE, period: period, account: account)
                             .environment(\.managedObjectContext, self.viewContext)

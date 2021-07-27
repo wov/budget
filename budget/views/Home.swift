@@ -11,6 +11,8 @@ import Foundation
 
 struct Home: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var config: Configure
+    
     var periodid:UUID
     var currentPeriod : Period
     
@@ -21,8 +23,8 @@ struct Home: View {
     
     init(_ period:Period ) {
         self.periodid = period.id!
-        self.currentPeriod = period //FetchRequest(entity: Period.entity(),  sortDescriptors: [] ,predicate: NSPredicate(format: "id == %@", periodid as CVarArg))
-
+        self.currentPeriod = period
+        
         self._accounts = FetchRequest(entity: Account.entity(), sortDescriptors: [])
         self._ies = FetchRequest(entity: CreatedIE.entity(), sortDescriptors: [] ,predicate: NSPredicate(format: "period == %@", periodid as CVarArg))
     }
@@ -38,7 +40,7 @@ struct Home: View {
         }
         return remind
     }
-
+    
     var body: some View {
         let remind:Float = calcRemind()
         VStack {
@@ -55,10 +57,8 @@ struct Home: View {
                 }
                 
                 Section{
-                        
                     
                 }
-                
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("\(self.currentPeriod.year!)-\(self.currentPeriod.month!)")
@@ -69,10 +69,14 @@ struct Home: View {
                     }
                 }
             }
+            
         }
         .sheet(isPresented: $showAddAccount, content: {
             addAccount(showAddAccount:self.$showAddAccount)
                 .environment(\.managedObjectContext, self.viewContext)
         })
+//        .onAppear{
+//            config.currentPeriod = self.periodid
+//        }
     }
 }
