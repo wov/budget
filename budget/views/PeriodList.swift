@@ -57,10 +57,10 @@ struct PeriodList: View {
                 }.onDelete(perform: deletePeriods)
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("选择月份")
+            .navigationTitle("选择账期")
             .toolbar{
                 ToolbarItem() {
-                    Button("添加") {
+                    Button("添加账期") {
                         self.showAddPeroid.toggle()
                     }
                 }

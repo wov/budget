@@ -91,7 +91,7 @@ struct addPeriod: View {
                 }
             }
             
-            .navigationBarTitle("添加月份", displayMode: .inline)
+            .navigationBarTitle("添加账期", displayMode: .inline)
             .navigationBarItems(leading:
                                     Button(action: {
                                         self.showAddPeroid = false
