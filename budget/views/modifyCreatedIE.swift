@@ -38,6 +38,19 @@ struct modifyCreatedIE: View {
         }
     }
     
+    private func setDisabled(){
+        if(basedie != nil ){
+            basedie?.disabled = true
+        }
+        do {
+            self.showModifyIE = false
+            try viewContext.save()
+        } catch {
+            
+        }
+    }
+    
+    
     var body: some View {
         let amountBinding = Binding<String>(get: {
             self.amount == 0 ?
@@ -52,19 +65,33 @@ struct modifyCreatedIE: View {
                 Section{
                     HStack{
                         Text("名称")
-                        TextField("",text:$name)
+                        TextField("修改名称",text:$name)
                     }
 
                     HStack {
                         Text("金额")
-                        TextField("",text:amountBinding)
+                        TextField("修改金额",text:amountBinding)
                             .keyboardType(.decimalPad)
+//                        Button(action: {
+//
+//                        }, label: {
+//                            Text("输入偏差值")
+//                        })
                     }
                     
                     Picker("类型",selection : $accountType){
                         Text("收入").tag("income")
                         Text("支出").tag("expenses")
                     }
+                    
+                    if(self.basedie != nil && !self.basedie!.disabled ){
+                        HStack {
+                            Button(action: self.setDisabled) {
+                                 Label("不再自动生成该条目", systemImage: "nosign")
+                             }
+                        }
+                    }
+                    
                 }
             }
             .navigationBarTitle(ie.name!, displayMode: .inline)

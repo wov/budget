@@ -90,9 +90,6 @@ struct AccountsRow: View {
                 let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
                 HStack{
                     VStack(alignment: .leading){
-                        Text(subTitle)
-                            .font(.footnote)
-                            .foregroundColor(Color.gray)
                         Text(ie.name!)
                     }
                     Spacer()
@@ -100,11 +97,18 @@ struct AccountsRow: View {
                     Button( action: {
                         self.showModifyIE.toggle()
                     }){
+                        
                         HStack{
-                            Text("\(String(format:"%.2f", ie.amount))")
-                                .foregroundColor(ie.type! == "income" ? .red : .green)
+                            VStack{
+                                Text(subTitle)
+                                    .font(.footnote)
+                                    .foregroundColor(Color.gray)
+                                Text("\(String(format:"%.2f", ie.amount))")
+                                    .foregroundColor(ie.type! == "income" ? .red : .green)
+                            }
                             Image(systemName: "chevron.right")
                         }
+                        
                     }.sheet(isPresented: $showModifyIE, content: {
                         modifyCreatedIE(showModifyIE:self.$showModifyIE,ie:ie,basedie: basedie,amount:ie.amount,name:ie.name!,accountType: ie.type!)
                             .environment(\.managedObjectContext, self.viewContext)

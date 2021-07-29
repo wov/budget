@@ -39,7 +39,21 @@ struct addPeriod: View {
         newPeriod.month = self.month
         
         for basedie in basedies {
-//            TODO: 如果basedie中包含了 截止日期，且截止日期小于这个月就不要创建了。
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM"
+
+            let periodDate:Date = formatter.date(from: "\(self.year)/\(self.month)") ?? Date()
+//            假如日期
+            if(basedie.end != nil && basedie.end! < periodDate){
+                continue
+            }
+            
+            if(basedie.disabled){
+                continue
+            }
+            
+            let _ = print(basedie.disabled)
+            
             let newCreatedIe = CreatedIE(context:viewContext)
             newCreatedIe.account = basedie.account
             if(basedie.amounttype == "fixedAmount"){
@@ -60,7 +74,6 @@ struct addPeriod: View {
             // Error handling
         }
     }
-    
     
     private func getPerid(year:String,month:String) -> Period?{
         var periods:[Period] = []
