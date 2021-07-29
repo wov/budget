@@ -43,6 +43,7 @@ struct Home: View {
     
     var body: some View {
         let remind:Float = calcRemind()
+        
         VStack {
             List{
                 Section{
@@ -52,16 +53,13 @@ struct Home: View {
                         Text("\(String(format:"%.2f", remind))")
                     }
                 }
+                
                 ForEach(accounts) { account in
                     AccountsRow(account:account,period:currentPeriod)
                 }
-                
-                Section{
-                    
-                }
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("\(self.currentPeriod.year!)-\(self.currentPeriod.month!)")
+            .navigationTitle("\(self.currentPeriod.year ?? "")-\(self.currentPeriod.month ?? "")")
             .toolbar{
                 ToolbarItem() {
                     Button("新增账户") {
@@ -75,8 +73,5 @@ struct Home: View {
             addAccount(showAddAccount:self.$showAddAccount)
                 .environment(\.managedObjectContext, self.viewContext)
         })
-//        .onAppear{
-//            config.currentPeriod = self.periodid
-//        }
     }
 }

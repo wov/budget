@@ -20,10 +20,22 @@ struct AccountsRow: View {
     init(account: Account,period: Period) {
         self.account = account
         self.period = period
-        self._ies = FetchRequest(entity: CreatedIE.entity(),
-                                 sortDescriptors: [  NSSortDescriptor(keyPath: \CreatedIE.type, ascending: false),
-                                                     NSSortDescriptor(keyPath: \CreatedIE.amount, ascending: false)] ,
-                                 predicate: NSPredicate(format: "period == %@ AND account = %@", period.id! as CVarArg , account.id! as CVarArg))
+        //        TODO：这里的写法比较骚气，以后看怎么改吧。。。
+        if(period.id != nil && account.id != nil){
+            self._ies =  FetchRequest(entity: CreatedIE.entity(),
+                                      sortDescriptors: [  NSSortDescriptor(keyPath: \CreatedIE.type, ascending: false),
+                                                          NSSortDescriptor(keyPath: \CreatedIE.amount, ascending: false)] ,
+                                      predicate: NSPredicate(format: "period == %@ AND account = %@",
+                                                             period.id! as CVarArg ,
+                                                             account.id! as CVarArg))
+        }else{
+            self._ies  =  FetchRequest(entity: CreatedIE.entity(),
+                                       sortDescriptors: [  NSSortDescriptor(keyPath: \CreatedIE.type, ascending: false),
+                                                           NSSortDescriptor(keyPath: \CreatedIE.amount, ascending: false)] ,
+                                       predicate: NSPredicate(format: "period == %@ AND account = %@",
+                                                              UUID() as CVarArg ,
+                                                              UUID() as CVarArg))
+        }
     }
     
     
@@ -50,7 +62,7 @@ struct AccountsRow: View {
     
     private func getSubTitle(ie:CreatedIE) -> String{
         var subTitle:String = ""
-
+        
         if(ie.basedie != nil){
             let bie = self.getBasedIE(id: ie.basedie!)
             if(bie?.amounttype == "dynamicAmount"){
@@ -74,30 +86,30 @@ struct AccountsRow: View {
     var body: some View {
         Section(header: Text( account.name ?? "" )){
             ForEach(self.ies){ ie in
-                    let subTitle = getSubTitle(ie:ie)
-                    let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
-                    HStack{
-                        VStack(alignment: .leading){
-                            Text(subTitle)
-                                .font(.footnote)
-                                .foregroundColor(Color.gray)
-                            Text(ie.name!)
-                        }
-                        Spacer()
-                        
-                        Button( action: {
-                            self.showModifyIE.toggle()
-                        }){
-                            HStack{
-                                Text("\(String(format:"%.2f", ie.amount))")
-                                    .foregroundColor(ie.type! == "income" ? .red : .green)
-                                Image(systemName: "chevron.right")
-                            }
-                        }.sheet(isPresented: $showModifyIE, content: {
-                            modifyCreatedIE(showModifyIE:self.$showModifyIE,ie:ie,basedie: basedie,amount:ie.amount,name:ie.name!,accountType: ie.type!)
-                                .environment(\.managedObjectContext, self.viewContext)
-                        })
+                let subTitle = getSubTitle(ie:ie)
+                let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
+                HStack{
+                    VStack(alignment: .leading){
+                        Text(subTitle)
+                            .font(.footnote)
+                            .foregroundColor(Color.gray)
+                        Text(ie.name!)
                     }
+                    Spacer()
+                    
+                    Button( action: {
+                        self.showModifyIE.toggle()
+                    }){
+                        HStack{
+                            Text("\(String(format:"%.2f", ie.amount))")
+                                .foregroundColor(ie.type! == "income" ? .red : .green)
+                            Image(systemName: "chevron.right")
+                        }
+                    }.sheet(isPresented: $showModifyIE, content: {
+                        modifyCreatedIE(showModifyIE:self.$showModifyIE,ie:ie,basedie: basedie,amount:ie.amount,name:ie.name!,accountType: ie.type!)
+                            .environment(\.managedObjectContext, self.viewContext)
+                    })
+                }
             }.onDelete(perform: deleteIes)
             
             HStack{

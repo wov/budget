@@ -47,23 +47,37 @@ struct PeriodList: View {
     
     var body: some View {
         NavigationView {
-            List{
-                ForEach(self.periods){ period in
-                    NavigationLink( destination : Home(period)){
-                        HStack{
-                            Text( String("\(period.year!)-\(period.month!)")  )
-                        }
-                    }
-                }.onDelete(perform: deletePeriods)
-            }
-            .listStyle(GroupedListStyle())
-            .navigationTitle("选择账期")
-            .toolbar{
-                ToolbarItem() {
-                    Button("添加账期") {
+            if(self.periods.isEmpty){
+                VStack{
+                    Text("需要稍等片刻")
+                    Text("等待iCloud自动同步")
+                    Divider()
+                    Text("如首次安装")
+                    Text("点击")
+                    Button("开始添加账期") {
                         self.showAddPeroid.toggle()
                     }
+                }.padding()
+            }else{
+                List{
+                    ForEach(self.periods){ period in
+                        NavigationLink( destination : Home(period)){
+                            HStack{
+                                Text( String("\(period.year!)-\(period.month!)")  )
+                            }
+                        }
+                    }.onDelete(perform: deletePeriods)
                 }
+                .listStyle(GroupedListStyle())
+                .navigationTitle("选择账期")
+                .toolbar{
+                    ToolbarItem() {
+                        Button("添加账期") {
+                            self.showAddPeroid.toggle()
+                        }
+                    }
+                }
+                
             }
         }
         .sheet(isPresented: $showAddPeroid, content: {
