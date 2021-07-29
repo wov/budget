@@ -15,7 +15,8 @@ struct PeriodList: View {
     
     @FetchRequest(
         entity: Period.entity(),
-        sortDescriptors: [],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Period.year, ascending: false),
+                          NSSortDescriptor(keyPath: \Period.month, ascending: false)],
         animation: .default
     ) var periods: FetchedResults<Period>
     
