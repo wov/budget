@@ -18,6 +18,8 @@ struct modifyCreatedIE: View {
     @State var name: String
     @State var accountType: String
     
+    @State private var showingDisableAlert = false
+    
     private func modify(){
         ie.name = name
         ie.amount = amount
@@ -25,9 +27,9 @@ struct modifyCreatedIE: View {
         
         if(basedie != nil){
             basedie?.name = name
+            basedie?.type = accountType
             if(basedie?.amounttype == "fixedAmount"){
                 basedie?.baseamount = amount
-                basedie?.type = accountType
             }
         }
         do {
@@ -60,6 +62,7 @@ struct modifyCreatedIE: View {
             self.amount = Float($0) ?? 0
         })
         
+        
         NavigationView{
             Form{
                 Section{
@@ -67,16 +70,16 @@ struct modifyCreatedIE: View {
                         Text("名称")
                         TextField("修改名称",text:$name)
                     }
-
+                    
                     HStack {
                         Text("金额")
                         TextField("修改金额",text:amountBinding)
                             .keyboardType(.decimalPad)
-//                        Button(action: {
-//
-//                        }, label: {
-//                            Text("输入偏差值")
-//                        })
+                        //                        Button(action: {
+                        //
+                        //                        }, label: {
+                        //                            Text("输入偏差值")
+                        //                        })
                     }
                     
                     Picker("类型",selection : $accountType){
@@ -86,10 +89,33 @@ struct modifyCreatedIE: View {
                     
                     if(self.basedie != nil && !self.basedie!.disabled ){
                         HStack {
-                            Button(action: self.setDisabled) {
-                                 Label("不再自动生成该条目", systemImage: "nosign")
-                             }
+                            
+                            if(self.basedie?.end != nil){
+                                Text("\((self.basedie?.end)! , style: .date)截止")
+                            }else{
+                                Text("无截止日期")
+                            }
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                showingDisableAlert = true
+                            }) {
+                                Label("不再生成", systemImage: "nosign")
+                            }
+                            .alert(isPresented:$showingDisableAlert) {
+                                        Alert(
+                                            title: Text("确认不再生成了吗？"),
+                                            message: Text("该操作不可取消"),
+                                            primaryButton: .destructive(Text("确认")) {
+                                                self.setDisabled()
+                                            },
+                                            secondaryButton: .cancel()
+                                        )
+                                    }
                         }
+                        
+                        
                     }
                     
                 }

@@ -99,7 +99,7 @@ struct AccountsRow: View {
                     }){
                         
                         HStack{
-                            VStack{
+                            VStack(alignment: .trailing){
                                 Text(subTitle)
                                     .font(.footnote)
                                     .foregroundColor(Color.gray)
