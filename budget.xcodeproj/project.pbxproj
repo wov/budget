@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83029D6A26CA9F96005EEFC3 /* publicFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83029D6926CA9F96005EEFC3 /* publicFunc.swift */; };
 		8318B95426916E330081E08F /* CloudKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318B95326916E330081E08F /* CloudKitHelper.swift */; };
 		831CACBF26A4056700C201A2 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831CACBE26A4056700C201A2 /* Configure.swift */; };
 		831F993F2684B6230076B082 /* budgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F993E2684B6230076B082 /* budgetApp.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83029D6926CA9F96005EEFC3 /* publicFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = publicFunc.swift; sourceTree = "<group>"; };
 		8318B95326916E330081E08F /* CloudKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitHelper.swift; sourceTree = "<group>"; };
 		831CACBE26A4056700C201A2 /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		831F993B2684B6230076B082 /* budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = budget.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,7 @@
 			children = (
 				8318B95326916E330081E08F /* CloudKitHelper.swift */,
 				837BA95C2699DAA90040DEF6 /* Formatter.swift */,
+				83029D6926CA9F96005EEFC3 /* publicFunc.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				831F994B2684B6270076B082 /* budget.xcdatamodeld in Sources */,
 				83AC1843269994A7008F9A57 /* addIE.swift in Sources */,
 				8382F8F2268CAAA100EFF7B2 /* Home.swift in Sources */,
+				83029D6A26CA9F96005EEFC3 /* publicFunc.swift in Sources */,
 				837BA95D2699DAA90040DEF6 /* Formatter.swift in Sources */,
 				831F993F2684B6230076B082 /* budgetApp.swift in Sources */,
 				8361792226A431FE00BBFDA4 /* PeriodList.swift in Sources */,

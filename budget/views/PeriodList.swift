@@ -35,7 +35,6 @@ struct PeriodList: View {
                     viewContext.delete(ie)
                 }
             }
-            
             viewContext.delete(period)
         }
         
@@ -65,6 +64,17 @@ struct PeriodList: View {
                         NavigationLink( destination : Home(period)){
                             HStack{
                                 Text( String("\(period.year!)-\(period.month!)")  )
+                                Spacer()
+                                if(!period.remind.isZero){
+                                    VStack(alignment:.trailing){
+                                        Text("结余")
+                                            .font(.footnote)
+                                            .foregroundColor(Color.gray)
+                                        Text("\(String(format:"%.2f", period.remind))")
+                                    }.font(.system(size: 12, weight: .light))
+                                    
+                                }
+                                
                             }
                         }
                     }.onDelete(perform: deletePeriods)

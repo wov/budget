@@ -21,6 +21,11 @@ struct Home: View {
     
     @State private var showAddAccount: Bool = false
     
+    @State private var income: Float = 0.0
+    @State private var expenses: Float = 0.0
+    @State private var remind: Float = 0.0
+
+    
     init(_ period:Period ) {
         self.periodid = period.id!
         self.currentPeriod = period
@@ -29,30 +34,55 @@ struct Home: View {
         self._ies = FetchRequest(entity: CreatedIE.entity(), sortDescriptors: [] ,predicate: NSPredicate(format: "period == %@", periodid as CVarArg))
     }
     
-    private func calcRemind() -> Float{
+    private func calcRemind() {
         var remind: Float = 0.0
+        var income: Float = 0.0
+        var expenses: Float = 0.0
         for  ie in self.ies{
             if(ie.type == "income"){
                 remind += Float(ie.amount)
+                income += Float(ie.amount)
             }else if(ie.type == "expenses"){
                 remind -= Float(ie.amount)
+                expenses += Float(ie.amount)
             }
         }
-        return remind
+//        这里保存本月的收入和结余
+        self.income = income
+        self.expenses = expenses
+        self.remind = remind
+        
+        self.currentPeriod.income = income
+        self.currentPeriod.expenses = expenses
+        self.currentPeriod.remind = remind
+
+        do {
+            try viewContext.save()
+        } catch {
+
+        }
     }
     
     var body: some View {
-        let remind:Float = calcRemind()
-        
         VStack {
             List{
-                Section{
-                    HStack{
-                        Text("本月结余")
-                        Spacer()
-                        Text("\(String(format:"%.2f", remind))")
-                    }
-                }
+//                Section{
+//                    HStack{
+//                        Text("本月收入")
+//                        Spacer()
+//                        Text("\(String(format:"%.2f", income))")
+//                    }
+//                    HStack{
+//                        Text("本月支出")
+//                        Spacer()
+//                        Text("\(String(format:"%.2f", expenses))")
+//                    }
+//                    HStack{
+//                        Text("本月结余")
+//                        Spacer()
+//                        Text("\(String(format:"%.2f", remind))")
+//                    }
+//                }
                 
                 ForEach(accounts) { account in
                     AccountsRow(account:account,period:currentPeriod)
@@ -68,6 +98,12 @@ struct Home: View {
                 }
             }
             
+        }
+        .onAppear{
+            calcRemind()
+        }
+        .onDisappear{
+            calcRemind()
         }
         .sheet(isPresented: $showAddAccount, content: {
             addAccount(showAddAccount:self.$showAddAccount)
