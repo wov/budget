@@ -75,11 +75,6 @@ struct modifyCreatedIE: View {
                         Text("金额")
                         TextField("修改金额",text:amountBinding)
                             .keyboardType(.decimalPad)
-                        //                        Button(action: {
-                        //
-                        //                        }, label: {
-                        //                            Text("输入偏差值")
-                        //                        })
                     }
                     
                     Picker("类型",selection : $accountType){

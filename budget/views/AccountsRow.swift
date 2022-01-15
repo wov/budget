@@ -85,7 +85,7 @@ struct AccountsRow: View {
     
     var body: some View {
         Section(header: Text( account.name ?? "" )){
-            ForEach(self.ies){ ie in
+            ForEach(self.ies, id: \.self){ ie in
                 let subTitle = getSubTitle(ie:ie)
                 let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
                 HStack{
@@ -97,7 +97,6 @@ struct AccountsRow: View {
                     Button( action: {
                         self.showModifyIE.toggle()
                     }){
-                        
                         HStack{
                             VStack(alignment: .trailing){
                                 Text(subTitle)
@@ -110,8 +109,10 @@ struct AccountsRow: View {
                         }
                         
                     }.sheet(isPresented: $showModifyIE, content: {
+                        
                         modifyCreatedIE(showModifyIE:self.$showModifyIE,ie:ie,basedie: basedie,amount:ie.amount,name:ie.name!,accountType: ie.type!)
                             .environment(\.managedObjectContext, self.viewContext)
+                        
                     })
                 }
             }.onDelete(perform: deleteIes)
