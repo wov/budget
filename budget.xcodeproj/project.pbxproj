@@ -27,6 +27,7 @@
 		8382F8F2268CAAA100EFF7B2 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8F1268CAAA100EFF7B2 /* Home.swift */; };
 		83AC184126996AC0008F9A57 /* addAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC184026996AC0008F9A57 /* addAccount.swift */; };
 		83AC1843269994A7008F9A57 /* addIE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC1842269994A7008F9A57 /* addIE.swift */; };
+		83C3E0FB27946A89004EFFA6 /* CreatedIERow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C3E0FA27946A89004EFFA6 /* CreatedIERow.swift */; };
 		83EA8D5C268E13B900809913 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83EA8D5B268E13B900809913 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		8382F8F1268CAAA100EFF7B2 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		83AC184026996AC0008F9A57 /* addAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addAccount.swift; sourceTree = "<group>"; };
 		83AC1842269994A7008F9A57 /* addIE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addIE.swift; sourceTree = "<group>"; };
+		83C3E0FA27946A89004EFFA6 /* CreatedIERow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedIERow.swift; sourceTree = "<group>"; };
 		83EA8D59268E13B200809913 /* budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = budget.entitlements; sourceTree = "<group>"; };
 		83EA8D5B268E13B900809913 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -190,6 +192,7 @@
 				837BA960269B0A5C0040DEF6 /* modifyCreatedIE.swift */,
 				8361792126A431FE00BBFDA4 /* PeriodList.swift */,
 				83552EB026B03A9800BC0C8E /* addPeriod.swift */,
+				83C3E0FA27946A89004EFFA6 /* CreatedIERow.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83C3E0FB27946A89004EFFA6 /* CreatedIERow.swift in Sources */,
 				831F99482684B6270076B082 /* Persistence.swift in Sources */,
 				831F99412684B6230076B082 /* ContentView.swift in Sources */,
 				831CACBF26A4056700C201A2 /* Configure.swift in Sources */,
@@ -524,7 +528,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.04;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inact.budget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -549,7 +553,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.04;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inact.budget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

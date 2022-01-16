@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B49BBC5F-D237-4A76-BBF5-6F63AFF7B5CF"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41220837-ECF7-4874-B06E-F88ECBE7D7D7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "budget/views/modifyCreatedIE.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "modifyCreatedIE"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "41220837-ECF7-4874-B06E-F88ECBE7D7D7 - f91ec38481719bbe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of budget.modifyCreatedIE.amount : Swift.Float"
+                  moduleName = "budget"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wov/workplace/budget/budget/views/modifyCreatedIE.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "41220837-ECF7-4874-B06E-F88ECBE7D7D7 - cc5c76c83e4356d4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "budget.modifyCreatedIE.amount.getter : Swift.Float"
+                  moduleName = "budget"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wov/workplace/budget/budget/views/modifyCreatedIE.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  uuid = "41220837-ECF7-4874-B06E-F88ECBE7D7D7 - 2b50b80b3277b2c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "budget.modifyCreatedIE.amount.setter : Swift.Float"
+                  moduleName = "budget"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wov/workplace/budget/budget/views/modifyCreatedIE.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "41220837-ECF7-4874-B06E-F88ECBE7D7D7 - 41ea260a7e86efc0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "budget.modifyCreatedIE.amount.modify : Swift.Float with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "budget"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wov/workplace/budget/budget/views/modifyCreatedIE.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  uuid = "41220837-ECF7-4874-B06E-F88ECBE7D7D7 - eaa97e35c90fd58"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "budget.modifyCreatedIE.$amount.getter : SwiftUI.Binding&lt;Swift.Float&gt;"
+                  moduleName = "budget"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wov/workplace/budget/budget/views/modifyCreatedIE.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "155">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "02B9EC00-91AA-439F-A8E4-195F5F90D5AD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "budget/views/modifyCreatedIE.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "modify()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F263858B-24F4-48E5-8BCC-3D690FCAA73E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "budget/views/modifyCreatedIE.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AAA0A939-8B01-4018-BA2B-777FD43347EC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "budget/views/modifyCreatedIE.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "51A00AC4-06A6-4551-81B8-54B7FA2BA700"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "budget/views/AccountsRow.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -47,74 +47,12 @@ struct AccountsRow: View {
             
         }
     }
-    
-    private func getBasedIE(id:UUID) -> BasedIE?{
-        var bies:[BasedIE] = []
-        do {
-            let request:NSFetchRequest<BasedIE> = BasedIE.fetchRequest()
-            request.predicate =  NSPredicate(format: "id == %@", id as CVarArg)
-            bies = try viewContext.fetch(request) as [BasedIE]
-        } catch let error as NSError {
-            print("Error in fetch :\(error)")
-        }
-        return bies.first
-    }
-    
-    private func getSubTitle(ie:CreatedIE) -> String{
-        var subTitle:String = ""
         
-        if(ie.basedie != nil){
-            let bie = self.getBasedIE(id: ie.basedie!)
-            if(bie?.amounttype == "dynamicAmount"){
-                subTitle += "动态"
-            }
-            if(bie?.amounttype == "fixedAmount"){
-                subTitle += "固定"
-            }
-            
-        }
-        if(ie.type == "income"){
-            subTitle += "收入"
-        }
-        if(ie.type == "expenses"){
-            subTitle += "支出"
-        }
-        return subTitle
-    }
-    
     
     var body: some View {
         Section(header: Text( account.name ?? "" )){
             ForEach(self.ies, id: \.self){ ie in
-                let subTitle = getSubTitle(ie:ie)
-                let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
-                HStack{
-                    VStack(alignment: .leading){
-                        Text(ie.name!)
-                    }
-                    Spacer()
-                    
-                    Button( action: {
-                        self.showModifyIE.toggle()
-                    }){
-                        HStack{
-                            VStack(alignment: .trailing){
-                                Text(subTitle)
-                                    .font(.footnote)
-                                    .foregroundColor(Color.gray)
-                                Text("\(String(format:"%.2f", ie.amount))")
-                                    .foregroundColor(ie.type! == "income" ? .red : .green)
-                            }
-                            Image(systemName: "chevron.right")
-                        }
-                        
-                    }.sheet(isPresented: $showModifyIE, content: {
-                        
-                        modifyCreatedIE(showModifyIE:self.$showModifyIE,ie:ie,basedie: basedie,amount:ie.amount,name:ie.name!,accountType: ie.type!)
-                            .environment(\.managedObjectContext, self.viewContext)
-                        
-                    })
-                }
+                CreatedIERow(ie:ie)
             }.onDelete(perform: deleteIes)
             
             HStack{
