@@ -18,7 +18,7 @@ struct PeriodList: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Period.year, ascending: false),
                           NSSortDescriptor(keyPath: \Period.month, ascending: false)],
         animation: .default
-    ) var periods: FetchedResults<Period>
+    )  var periods: FetchedResults<Period>
     
     @FetchRequest(
         entity: CreatedIE.entity(),
@@ -98,8 +98,3 @@ struct PeriodList: View {
     }
 }
 
-struct PeriodList_Previews: PreviewProvider {
-    static var previews: some View {
-        PeriodList()
-    }
-}

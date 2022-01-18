@@ -47,12 +47,47 @@ struct AccountsRow: View {
             
         }
     }
+    
+    private func getBasedIE(id:UUID) -> BasedIE?{
+           var bies:[BasedIE] = []
+           do {
+               let request:NSFetchRequest<BasedIE> = BasedIE.fetchRequest()
+               request.predicate =  NSPredicate(format: "id == %@", id as CVarArg)
+               bies = try viewContext.fetch(request) as [BasedIE]
+           } catch let error as NSError {
+               print("Error in fetch :\(error)")
+           }
+           return bies.first
+       }
+
+    private func getSubTitle(ie:CreatedIE) -> String{
+           var subTitle:String = ""
+
+           if(ie.basedie != nil){
+               let bie = self.getBasedIE(id: ie.basedie!)
+               if(bie?.amounttype == "dynamicAmount"){
+                   subTitle += "动态"
+               }
+               if(bie?.amounttype == "fixedAmount"){
+                   subTitle += "固定"
+               }
+
+           }
+           if(ie.type == "income"){
+               subTitle += "收入"
+           }
+           if(ie.type == "expenses"){
+               subTitle += "支出"
+           }
+           return subTitle
+       }
         
     
     var body: some View {
         Section(header: Text( account.name ?? "" )){
             ForEach(self.ies, id: \.self){ ie in
-                CreatedIERow(ie:ie)
+                let basedie:BasedIE? = (ie.basedie != nil) ? getBasedIE(id: ie.basedie!) : nil
+                CreatedIERow(ie:ie,basedie:basedie)
             }.onDelete(perform: deleteIes)
             
             HStack{

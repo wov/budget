@@ -13,11 +13,10 @@ struct CreatedIERow: View {
     
     @Environment(\.managedObjectContext) private var viewContext
 
-    var ie:CreatedIE
+    @ObservedObject var ie:CreatedIE
+    var basedie:BasedIE?
     
-    @State private var basedie:BasedIE?
     @State private var showModifyIE: Bool = false
-    
     
     private func getSubTitle(ie:CreatedIE) -> String{
         var subTitle:String = ""
@@ -54,14 +53,8 @@ struct CreatedIERow: View {
         return bies.first
     }
     
-    
-    
-    
     var body: some View {
-        
         let subTitle = getSubTitle(ie:ie)
-
-        
         HStack{
             VStack(alignment: .leading){
                 Text(ie.name!)
