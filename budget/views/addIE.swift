@@ -95,11 +95,11 @@ struct addIE: View {
                     HStack {
                         Text("名称")
                         TextField("名称",text:$name)
-                        Button(action: {
-                            self.useDateAsName()
-                        }, label: {
-                            Text("插入日期")
-                        })
+//                        Button(action: {
+//                            self.useDateAsName()
+//                        }, label: {
+//                            Text("插入日期")
+//                        })
                     }
                     
                     Picker("类型",selection : $accountType){
