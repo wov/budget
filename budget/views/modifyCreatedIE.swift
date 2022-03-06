@@ -73,8 +73,14 @@ struct modifyCreatedIE: View {
                     
                     HStack {
                         Text("金额")
-                        TextField("修改金额",text:amountBinding)
-                            .keyboardType(.decimalPad)
+                        if #available(iOS 15.0, *) {
+                            TextField("修改金额",value: $amount, format: .currency(code: "CNY"))
+                                .keyboardType(.decimalPad)
+                        } else {
+                            TextField("修改金额",text:amountBinding)
+                                .keyboardType(.decimalPad)
+                        }
+
                     }
                     
                     Picker("类型",selection : $accountType){

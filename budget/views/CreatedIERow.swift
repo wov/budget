@@ -69,8 +69,16 @@ struct CreatedIERow: View {
                         Text(subTitle)
                             .font(.footnote)
                             .foregroundColor(Color.gray)
-                        Text("\(String(format:"%.2f", ie.amount))")
-                            .foregroundColor(ie.type! == "income" ? .red : .green)
+                        
+                        if #available(iOS 15.0, *) {
+                            Text(ie.amount,format: .currency(code: "CNY"))
+                                .foregroundColor(ie.type! == "income" ? .red : .green)
+                        } else {
+                            Text("\(String(format:"%.2f", ie.amount))")
+                                .foregroundColor(ie.type! == "income" ? .red : .green)
+                        }
+                        
+                        
                     }
                     Image(systemName: "chevron.right")
                 }

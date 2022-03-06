@@ -81,6 +81,8 @@ struct addIE: View {
     }
     
     var body: some View {
+        
+        
         let amountBinding = Binding<String>(get: {
             self.amount == 0 ?
                 "" :
@@ -89,17 +91,13 @@ struct addIE: View {
             self.amount = Float($0) ?? 0
         })
         
+        
         NavigationView{
             Form{
                 Section{
                     HStack {
                         Text("名称")
                         TextField("名称",text:$name)
-//                        Button(action: {
-//                            self.useDateAsName()
-//                        }, label: {
-//                            Text("插入日期")
-//                        })
                     }
                     
                     Picker("类型",selection : $accountType){
@@ -109,8 +107,14 @@ struct addIE: View {
                     
                     HStack {
                         Text("金额")
-                        TextField("金额",text:amountBinding)
-                            .keyboardType(.decimalPad)
+                        if #available(iOS 15.0, *) {
+                            TextField("修改金额",value: $amount, format: .currency(code: "CNY"))
+                                .keyboardType(.decimalPad)
+                        } else {
+                            TextField("金额",text:amountBinding)
+                                .keyboardType(.decimalPad)
+                        }
+
                     }
                     
                     HStack {

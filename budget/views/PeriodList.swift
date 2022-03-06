@@ -70,7 +70,13 @@ struct PeriodList: View {
                                         Text("结余")
                                             .font(.footnote)
                                             .foregroundColor(Color.gray)
-                                        Text("\(String(format:"%.2f", period.remind))")
+                                        
+                                        if #available(iOS 15.0, *) {
+                                            Text(period.remind,format: .currency(code: "CNY"))
+                                        } else {
+                                            Text("\(String(format:"%.2f", period.remind))")
+                                        }
+                                        
                                     }.font(.system(size: 12, weight: .light))
                                     
                                 }
