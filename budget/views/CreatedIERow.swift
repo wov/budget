@@ -57,7 +57,7 @@ struct CreatedIERow: View {
         let subTitle = getSubTitle(ie:ie)
         HStack{
             VStack(alignment: .leading){
-                Text(ie.name!)
+                Text(ie.name ?? "")
             }
             Spacer()
             
@@ -72,10 +72,10 @@ struct CreatedIERow: View {
                         
                         if #available(iOS 15.0, *) {
                             Text(ie.amount,format: .currency(code: "CNY"))
-                                .foregroundColor(ie.type! == "income" ? .red : .green)
+                                .foregroundColor(ie.type == "income" ? .red : .green)
                         } else {
                             Text("\(String(format:"%.2f", ie.amount))")
-                                .foregroundColor(ie.type! == "income" ? .red : .green)
+                                .foregroundColor(ie.type == "income" ? .red : .green)
                         }
                         
                         
