@@ -98,7 +98,7 @@ struct AccountsRow: View {
                         Text("新增条目")
                     }.sheet(isPresented: $showAddIE, content: {
                         addIE(showAddIE:self.$showAddIE, period: period, account: account)
-                            .environment(\.managedObjectContext, self.viewContext)
+                            
                     })
                 }
             }

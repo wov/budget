@@ -97,24 +97,30 @@ struct addIE: View {
                 Section{
                     HStack {
                         Text("名称")
+                            .frame(width: 80,  alignment: .leading)
                         TextField("名称",text:$name)
                     }
                     
-                    Picker("类型",selection : $accountType){
-                        Text("收入").tag(type.income)
-                        Text("支出").tag(type.expenses)
-                    }
+                    HStack {
+                        Text("类型")
+                            .frame(width: 80,  alignment: .leading)
+
+                        Picker("类型",selection : $accountType){
+                            Text("收入").tag(type.income)
+                            Text("支出").tag(type.expenses)
+                        }
+                    }.pickerStyle(.segmented)
                     
                     HStack {
                         Text("金额")
+                            .frame(width: 80,  alignment: .leading)
+
+
                         if #available(iOS 15.0, *) {
-                            TextField("修改金额",value: $amount, format: .currency(code: "CNY"))
-                                .keyboardType(.decimalPad)
+                            TextField("金额",value: $amount, format: .currency(code: "CNY"))
                         } else {
                             TextField("金额",text:amountBinding)
-                                .keyboardType(.decimalPad)
                         }
-
                     }
                     
                     HStack {
@@ -122,10 +128,17 @@ struct addIE: View {
                     }
                     
                     if(self.isrepeat){
-                        Picker("金额类型",selection : $amountType){
-                            Text("每月固定").tag(amountTypes.fixedAmount)
-                            Text("每月调整").tag(amountTypes.dynamicAmount)
-                        }
+                        
+                        
+                        HStack {
+                            Text("金额类型")
+                                .frame(width: 80,  alignment: .leading)
+
+                            Picker("金额类型",selection : $amountType){
+                                Text("每月固定").tag(amountTypes.fixedAmount)
+                                Text("每月调整").tag(amountTypes.dynamicAmount)
+                            }
+                        }.pickerStyle(.segmented)
                         
                         HStack {
                             Toggle("包含截止日期",isOn: $hasEnd)

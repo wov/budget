@@ -68,11 +68,15 @@ struct modifyCreatedIE: View {
                 Section{
                     HStack{
                         Text("名称")
+                            .frame(width: 80,  alignment: .leading)
+
                         TextField("修改名称",text:$name)
                     }
                     
                     HStack {
                         Text("金额")
+                            .frame(width: 80,  alignment: .leading)
+
                         if #available(iOS 15.0, *) {
                             TextField("修改金额",value: $amount, format: .currency(code: "CNY"))
                                 .keyboardType(.decimalPad)
@@ -80,13 +84,20 @@ struct modifyCreatedIE: View {
                             TextField("修改金额",text:amountBinding)
                                 .keyboardType(.decimalPad)
                         }
-
                     }
                     
-                    Picker("类型",selection : $accountType){
-                        Text("收入").tag("income")
-                        Text("支出").tag("expenses")
-                    }
+                    
+                    HStack {
+                        Text("类型")
+                            .frame(width: 80,  alignment: .leading)
+
+                        Picker("类型",selection : $accountType){
+                            Text("收入").tag("income")
+                            Text("支出").tag("expenses")
+                        }
+                    }.pickerStyle(.segmented)
+                    
+                
                     
                     if(self.basedie != nil && !self.basedie!.disabled ){
                         HStack {
