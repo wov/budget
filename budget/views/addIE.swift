@@ -118,9 +118,12 @@ struct addIE: View {
 
                         if #available(iOS 15.0, *) {
                             TextField("金额",value: $amount, format: .currency(code: "CNY"))
+                                .foregroundColor( accountType.rawValue == "income" ? .red : .green)
                         } else {
                             TextField("金额",text:amountBinding)
+                                .foregroundColor( accountType.rawValue == "income" ? .red : .green)
                         }
+
                     }
                     
                     HStack {
