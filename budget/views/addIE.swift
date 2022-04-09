@@ -106,8 +106,8 @@ struct addIE: View {
                             .frame(width: 80,  alignment: .leading)
 
                         Picker("类型",selection : $accountType){
-                            Text("收入").tag(type.income)
                             Text("支出").tag(type.expenses)
+                            Text("收入").tag(type.income)
                         }
                     }.pickerStyle(.segmented)
                     

@@ -94,8 +94,8 @@ struct modifyCreatedIE: View {
                             .frame(width: 80,  alignment: .leading)
 
                         Picker("类型",selection : $accountType){
-                            Text("收入").tag("income")
                             Text("支出").tag("expenses")
+                            Text("收入").tag("income")
                         }
                     }.pickerStyle(.segmented)
                     
