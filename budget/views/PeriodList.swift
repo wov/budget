@@ -72,7 +72,7 @@ struct PeriodList: View {
                                             .foregroundColor(Color.gray)
                                         
                                         if #available(iOS 15.0, *) {
-                                            Text(period.remind,format: .currency(code: "CNY"))
+                                            Text(period.remind,format: .number)
                                         } else {
                                             Text("\(String(format:"%.2f", period.remind))")
                                         }

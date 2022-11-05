@@ -78,7 +78,7 @@ struct modifyCreatedIE: View {
                             .frame(width: 80,  alignment: .leading)
 
                         if #available(iOS 15.0, *) {
-                            TextField("修改金额",value: $amount, format: .currency(code: "CNY"))
+                            TextField("修改金额",value: $amount, format: .number)
                                 .foregroundColor( accountType == "income" ? .red : .green)
                                 .keyboardType(.decimalPad)
                         } else {

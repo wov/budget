@@ -117,7 +117,7 @@ struct addIE: View {
 
 
                         if #available(iOS 15.0, *) {
-                            TextField("金额",value: $amount, format: .currency(code: "CNY"))
+                            TextField("金额",value: $amount, format: .number)
                                 .foregroundColor( accountType.rawValue == "income" ? .red : .green)
                         } else {
                             TextField("金额",text:amountBinding)

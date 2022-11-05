@@ -301,44 +301,44 @@ struct CloudKitHelper {
         
     }
     
-    
-    func fetchShareMetadata(for shareURLs: [URL],
-        completion: @escaping (Result<[URL: CKShare.Metadata], Error>) -> Void) {
-            
-        var cache = [URL: CKShare.Metadata]()
-            
-        // Create the fetch operation using the share URLs that
-        // the caller provides to the method.
-        let operation = CKFetchShareMetadataOperation(shareURLs: shareURLs)
-            
-        // Request that CloudKit includes the root record in
-        // the metadata it returns to reduce network requests.
-        operation.shouldFetchRootRecord = true
-            
-        // Cache the metadata that CloudKit returns using the
-        // share URL. This implementation ignores per-metadata
-        // fetch errors and handles any errors in the completion
-        // closure instead.
-        operation.perShareMetadataBlock = { url, metadata, _ in
-            guard let metadata = metadata else { return }
-            cache[url] = metadata
-        }
-            
-        // If the operation fails, return the error to the caller.
-        // Otherwise, return the array of participants.
-        operation.fetchShareMetadataCompletionBlock = { error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                completion(.success(cache))
-            }
-        }
-            
-        // Set an appropriate QoS and add the operation to the
-        // container's queue to execute it.
-        operation.qualityOfService = .userInitiated
-        CKContainer.default().add(operation)
-    }
+//    
+//    func fetchShareMetadata(for shareURLs: [URL],
+//        completion: @escaping (Result<[URL: CKShare.Metadata], Error>) -> Void) {
+//            
+//        var cache = [URL: CKShare.Metadata]()
+//            
+//        // Create the fetch operation using the share URLs that
+//        // the caller provides to the method.
+//        let operation = CKFetchShareMetadataOperation(shareURLs: shareURLs)
+//            
+//        // Request that CloudKit includes the root record in
+//        // the metadata it returns to reduce network requests.
+//        operation.shouldFetchRootRecord = true
+//            
+//        // Cache the metadata that CloudKit returns using the
+//        // share URL. This implementation ignores per-metadata
+//        // fetch errors and handles any errors in the completion
+//        // closure instead.
+//        operation.perShareMetadataBlock = { url, metadata, _ in
+//            guard let metadata = metadata else { return }
+//            cache[url] = metadata
+//        }
+//            
+//        // If the operation fails, return the error to the caller.
+//        // Otherwise, return the array of participants.
+//        operation.fetchShareMetadataCompletionBlock = { error in
+//            if let error = error {
+//                completion(.failure(error))
+//            } else {
+//                completion(.success(cache))
+//            }
+//        }
+//            
+//        // Set an appropriate QoS and add the operation to the
+//        // container's queue to execute it.
+//        operation.qualityOfService = .userInitiated
+//        CKContainer.default().add(operation)
+//    }
 //
 //    func fetchParticipants(for lookupInfos: [CKUserIdentity.LookupInfo],
 //                           completion: @escaping (Result<[CKShare.Participant], Error>) -> Void) {

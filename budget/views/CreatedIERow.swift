@@ -71,7 +71,7 @@ struct CreatedIERow: View {
                             .foregroundColor(Color.gray)
                         
                         if #available(iOS 15.0, *) {
-                            Text(ie.amount,format: .currency(code: "CNY"))
+                            Text(ie.amount,format: .number)
                                 .foregroundColor(ie.type == "income" ? .red : .green)
                         } else {
                             Text("\(String(format:"%.2f", ie.amount))")
